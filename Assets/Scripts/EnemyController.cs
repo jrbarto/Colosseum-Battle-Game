@@ -5,22 +5,23 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     public int healthPoints = 5;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float secondsBetweenHit = 0.5f;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private float lastHitTime;
 
     public void TakeDamage(int damage) {
-        if (healthPoints > 0) {
+        if (Time.time - lastHitTime >= secondsBetweenHit && healthPoints > 0) {
             healthPoints -= damage;
+            lastHitTime = Time.time;
+            Debug.Log("ENEMY HEALTH AT " + healthPoints);
         }
-        Debug.Log("ENEMY HEALTH AT " + healthPoints);
+        if (healthPoints <= 0) {
+            Die();
+        }
+    }
+
+    private void Die() {
+        gameObject.GetComponent<EnemyCombatController>().alive = false;
+        Debug.Log("ENEMY IS DEAD!");
     }
 }

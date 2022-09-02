@@ -12,34 +12,21 @@ public class EnemyCombatController : MonoBehaviour
     public float movementSpeed = 5.0f;
     public float turningSpeed = 5.0f;
     public int damage = 1;
+    public bool alive = true;
     private bool armSwinging = false;
     private bool turning = false;
 
-    // Update is called once per frame
     void Update()
     {
-        float chaseAngle = 10.0f;
+        if (!alive) {
+            return;
+        }
+        float chaseAngle = 5.0f;
         Vector3 targetDir = (player.transform.position - transform.position).normalized;
         float angleToTarget = Vector3.SignedAngle(targetDir, transform.forward, Vector3.up);
         if (Mathf.Abs(angleToTarget) > chaseAngle && !turning) {
             StartCoroutine(turn(angleToTarget));
         }
-        
-        // PlayerController pController;
-        // if (SphereCastForPlayer(
-        //     out pController,
-        //     transform.position,
-        //     transform.forward,
-        //     transform.localScale.x,
-        //     chaseDistance
-        // )) {
-        //     if (!armSwinging && pController != null) {
-        //         StartCoroutine(attackPlayer(pController));
-        //     }
-        // }  else if (!turning) {
-        //     Vector3 movement = transform.InverseTransformDirection(transform.forward * movementSpeed * Time.deltaTime);
-        //     transform.Translate(movement);
-        // }
 
         RaycastHit hit;
         Ray ray = new Ray(transform.position, transform.forward);
@@ -86,9 +73,6 @@ public class EnemyCombatController : MonoBehaviour
             yield return null;
         }
         weaponCollider.enabled = false;
-        // if (Vector3.Distance(attackingArm.transform.position, pController.transform.position) <= forwardAttackRange) {
-        //     pController.TakeDamage(damage);
-        // }
         while (attackingArm.transform.localEulerAngles.z > minArmRotation) {
             float upwardRotation = -(armRotationPerFrame * attackSpeed * Time.deltaTime);
             attackingArm.transform.Rotate(new Vector3(0, 0, upwardRotation));
@@ -96,26 +80,4 @@ public class EnemyCombatController : MonoBehaviour
         }
         armSwinging = false;
     }
-
-    // bool SphereCastForPlayer(
-    //     out PlayerController pController,
-    //     Vector3 position, 
-    //     Vector3 direction, 
-    //     float radius, 
-    //     float distance
-    // ) {
-    //     pController = null;
-    //     RaycastHit hit;
-    //     Ray ray = new Ray(position, direction);
-    //     if (Physics.SphereCast(ray, radius, out hit, distance)) {
-    //         GameObject foundObject = hit.transform.gameObject;
-    //         GetPlayer getPlayer = foundObject.GetComponent<GetPlayer>();
-    //         if (getPlayer != null) {
-    //             foundObject = getPlayer.player;
-    //         }
-    //         pController = foundObject.GetComponent<PlayerController>();
-    //         return true;
-    //     }
-    //     return false;
-    // }
 }

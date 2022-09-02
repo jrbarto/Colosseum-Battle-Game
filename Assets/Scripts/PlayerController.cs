@@ -46,5 +46,8 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Die() {
+        gameObject.GetComponent<PlayerCombatController>().alive = false;
+        gameObject.GetComponent<Movement>().alive = false;
+        Debug.Log("YOU DIED!!");
     }
 }

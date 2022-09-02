@@ -4373,6 +4373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 9
+  alive: 1
 --- !u!114 &890574974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4416,9 +4417,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackingArm: {fileID: 874766340}
+  weapon: {fileID: 2015499569}
   attackSpeed: 5
   attackDistance: 5
   damage: 1
+  alive: 1
 --- !u!1 &890734850
 GameObject:
   m_ObjectHideFlags: 0
@@ -5796,7 +5799,7 @@ BoxCollider:
   m_GameObject: {fileID: 1083329937}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -6190,7 +6193,7 @@ SphereCollider:
   m_GameObject: {fileID: 1254278317}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -8267,8 +8270,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1861610682}
   - component: {fileID: 1861610683}
-  - component: {fileID: 1861610685}
   - component: {fileID: 1861610684}
+  - component: {fileID: 1861610685}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -8330,7 +8333,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1861610681}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67d1313241d8c9c2db8445280f2e0b13, type: 3}
+  m_Script: {fileID: 11500000, guid: a3b4ae40df22a8f98b9beeadf035d2d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1895413134
@@ -8817,6 +8820,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2015499570}
+  - component: {fileID: 2015499573}
+  - component: {fileID: 2015499572}
+  - component: {fileID: 2015499571}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -8840,6 +8846,47 @@ Transform:
   m_Father: {fileID: 874766341}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2015499571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015499569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0078cb05462b95c7b2611a6191f39d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &2015499572
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015499569}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &2015499573
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015499569}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.41, y: 1, z: 0.19}
+  m_Center: {x: -0.78, y: 1.74, z: 0.62}
 --- !u!1 &2017512800
 GameObject:
   m_ObjectHideFlags: 0
@@ -9572,10 +9619,11 @@ MonoBehaviour:
   attackingArm: {fileID: 791981262}
   weapon: {fileID: 1861610681}
   attackRange: 0.3
-  attackSpeed: 2
+  attackSpeed: 4
   movementSpeed: 5
-  turningSpeed: 2
+  turningSpeed: 5
   damage: 1
+  alive: 1
 --- !u!114 &2134155536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9589,3 +9637,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints: 5
+  secondsBetweenHit: 0.5
