@@ -7,8 +7,8 @@ public class EnemyCombatController : MonoBehaviour
     public GameObject player;
     public GameObject attackingArm;
     public GameObject weapon;
-    public float attackRange = 0.3f;
-    public float attackSpeed = 5.0f;
+    public float attackRange = 0.7f;
+    public float attackSpeed = 2.0f;
     public float movementSpeed = 5.0f;
     public float turningSpeed = 5.0f;
     public int damage = 1;
@@ -16,6 +16,15 @@ public class EnemyCombatController : MonoBehaviour
     private bool armSwinging = false;
     private bool turning = false;
 
+    public void dropWeapon() {
+        weapon.transform.parent = null;
+        Collider weaponCollider = weapon.transform.GetComponent<Collider>();
+        weaponCollider.enabled = true;
+        weaponCollider.isTrigger = false;
+        weapon.transform.GetComponent<Rigidbody>().useGravity = true;
+        attackingArm.transform.Rotate(new Vector3(0, 0, 80));
+        attackingArm.transform.Translate(new Vector3(0.2f, -0.3f, 0));
+    }
     void Update()
     {
         if (!alive) {
@@ -72,8 +81,11 @@ public class EnemyCombatController : MonoBehaviour
             attackingArm.transform.Rotate(new Vector3(0, 0, downwardRotation));
             yield return null;
         }
-        weaponCollider.enabled = false;
+        weaponCollider.enabled = !alive;
         while (attackingArm.transform.localEulerAngles.z > minArmRotation) {
+            if (!alive) {
+                yield break;
+            }
             float upwardRotation = -(armRotationPerFrame * attackSpeed * Time.deltaTime);
             attackingArm.transform.Rotate(new Vector3(0, 0, upwardRotation));
             yield return null;
