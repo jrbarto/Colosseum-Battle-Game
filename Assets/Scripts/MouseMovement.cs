@@ -26,6 +26,11 @@ public class MouseMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // gets component in gameobject or any of its parents
+        PlayerCombatController combatController = gameObject.GetComponentInParent<PlayerCombatController>();
+        if (!combatController.alive) {
+            return;
+        }
         float horizontalAngle = transform.localEulerAngles.y;
         if (axis == Axes.Y || axis == Axes.BOTH) {
             vertAngle -= Input.GetAxis("Mouse Y") * verticalSensitivity;

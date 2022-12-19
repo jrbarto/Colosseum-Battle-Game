@@ -5,7 +5,6 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public float speed = 9.0f;
-    public bool alive = true;
     private float gravity = -9.8f;
     CharacterController controller;
     // Start is called before the first frame update
@@ -17,7 +16,7 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!alive) {
+        if (!gameObject.GetComponent<PlayerCombatController>().alive) {
             return;
         }
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), gravity, Input.GetAxis("Vertical"));

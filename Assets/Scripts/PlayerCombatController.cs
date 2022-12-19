@@ -7,7 +7,6 @@ public class PlayerCombatController : MonoBehaviour
     public GameObject attackingArm;
     public GameObject weapon;
     public float attackSpeed = 5.0f;
-    public float attackDistance = 5.0f;
     public int damage = 1;
     public bool alive = true;
     private bool attacking = false;    
@@ -26,7 +25,7 @@ public class PlayerCombatController : MonoBehaviour
         Collider weaponCollider = weapon.GetComponent<Collider>();
         float maxArmRotation = 350.0f;
         float minArmRotation = 270.0f;
-        float armRotationPerFrame = 50.0f;
+        float armRotationPerFrame = 30.0f;
         attacking = true;
         weaponCollider.enabled = true;
         while (attackingArm.transform.localEulerAngles.z < maxArmRotation) {
@@ -34,20 +33,6 @@ public class PlayerCombatController : MonoBehaviour
             attackingArm.transform.Rotate(new Vector3(0, 0, downwardRotation));
             yield return null;
         }
-
-        // Ray ray = new Ray(transform.position, transform.forward);
-        // RaycastHit hit;
-        // if (Physics.SphereCast(ray, transform.localScale.x, out hit, attackDistance)) {
-        //     GameObject foundObject = hit.transform.gameObject;
-        //     GetEnemy getEnemy = foundObject.GetComponent<GetEnemy>();
-        //     if (getEnemy != null) {
-        //         foundObject = getEnemy.enemy;
-        //     }
-        //     EnemyController enemyController = foundObject.GetComponent<EnemyController>();
-        //     if (enemyController != null) {
-        //         enemyController.TakeDamage(damage);
-        //     }
-        // }
         weaponCollider.enabled = false;
         while (attackingArm.transform.localEulerAngles.z > minArmRotation) {
             float upwardRotation = -(armRotationPerFrame * attackSpeed * Time.deltaTime);
@@ -55,5 +40,16 @@ public class PlayerCombatController : MonoBehaviour
             yield return null;
         }
         attacking = false;
+    }
+
+    //TODO create an interface for player and enemy combat controllers and add this to it
+    public void dropWeapon() {
+        weapon.transform.parent = null;
+        Collider weaponCollider = weapon.transform.GetComponent<Collider>();
+        weaponCollider.enabled = true;
+        weaponCollider.isTrigger = false;
+        weapon.transform.GetComponent<Rigidbody>().useGravity = true;
+        attackingArm.transform.Rotate(new Vector3(0, 0, 80));
+        attackingArm.transform.Translate(new Vector3(0.2f, -0.3f, 0));
     }
 }

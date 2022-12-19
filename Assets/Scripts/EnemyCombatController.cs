@@ -30,12 +30,6 @@ public class EnemyCombatController : MonoBehaviour
         if (!alive) {
             return;
         }
-        float chaseAngle = 5.0f;
-        Vector3 targetDir = (player.transform.position - transform.position).normalized;
-        float angleToTarget = Vector3.SignedAngle(targetDir, transform.forward, Vector3.up);
-        if (Mathf.Abs(angleToTarget) > chaseAngle && !turning) {
-            StartCoroutine(turn(angleToTarget));
-        }
 
         RaycastHit hit;
         Ray ray = new Ray(transform.position, transform.forward);
@@ -54,6 +48,13 @@ public class EnemyCombatController : MonoBehaviour
         } else if (!turning) {
             Vector3 movement = transform.InverseTransformDirection(transform.forward * movementSpeed * Time.deltaTime);
             transform.Translate(movement);
+        }
+
+        float chaseAngle = 5.0f;
+        Vector3 targetDir = (player.transform.position - transform.position).normalized;
+        float angleToTarget = Vector3.SignedAngle(targetDir, transform.forward, Vector3.up);
+        if (Mathf.Abs(angleToTarget) > chaseAngle && !turning) {
+            StartCoroutine(turn(angleToTarget));
         }
     }
 
