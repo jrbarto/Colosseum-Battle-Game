@@ -1,41 +1,35 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class CombatantController : MonoBehaviour
+public abstract class HealthController : MonoBehaviour
 {
-    public Camera camera;
-    public int healthPoints = 5;
-    public int maxHealthPoints = 5;
-    public float secondsBetweenHit = 0.5f;
-    private float lastHitTime;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        healthPoints = 5;
-    }
+    public int healthPoints;
+    public int maxHealthPoints;
+    protected float secondsBetweenHit = 0.5f;
+    protected float lastHitTime;
 
     public void TakeDamage(int damage) {
         if (Time.time - lastHitTime >= secondsBetweenHit && healthPoints > 0) {
             healthPoints -= damage;
             lastHitTime = Time.time;
         }
-        if (gameObject.GetComponent<PlayerCombatController>().alive && healthPoints <= 0) {
+        CombatController combatController = gameObject.GetComponent<CombatController>();
+        if (this is EnemyHealthController) {
+            ((EnemyHealthController)this).healthText.text = $"{healthPoints}/{maxHealthPoints}";
+        }
+        if (combatController.alive && healthPoints <= 0) {
             Die();
         }
     }
 
     private void Die() {
-        PlayerCombatController combatController = gameObject.GetComponent<PlayerCombatController>();
+        CombatController combatController = gameObject.GetComponent<CombatController>();
         combatController.alive = false;
         combatController.dropWeapon();
-        Debug.Log("YOU DIED!!");
         StartCoroutine(Collapse());
     }
 
-    //TODO add this to the interface for enemy and player controller when i make it
-    IEnumerator Collapse() {
+    private IEnumerator Collapse() {
         float angle = transform.localEulerAngles.x;
         while ((angle > 180 ? angle - 360 : angle) > -90) {
             transform.Rotate(new Vector3(-2, 0, 0));
