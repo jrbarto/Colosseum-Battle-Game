@@ -10,13 +10,13 @@ public class EnemyCombatController : CombatController
 
     void Update()
     {
-        if (!alive) {
+        if (!alive || !player.GetComponent<PlayerCombatController>().alive) {
             return;
         }
 
         RaycastHit hit;
-        Ray ray = new Ray(transform.position, transform.forward);
-        if (Physics.SphereCast(ray, transform.localScale.x, out hit, weaponAttack.attackRange)) {
+        Ray ray = new Ray(attackingArm.transform.position, transform.forward);
+        if (Physics.SphereCast(ray, attackingArm.transform.localScale.x, out hit, weaponAttack.attackRange)) {
             if (!attacking) {
                 GameObject foundObject = hit.transform.gameObject;
                 GetCombatant getCombatant = foundObject.GetComponent<GetCombatant>();

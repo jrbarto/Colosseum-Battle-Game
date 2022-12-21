@@ -5,13 +5,12 @@ public class Movement : MonoBehaviour
     public float speed = 9.0f;
     private float gravity = -9.8f;
     CharacterController controller;
-    // Start is called before the first frame update
+
     void Start()
     {
         controller = gameObject.GetComponent<CharacterController>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!gameObject.GetComponent<PlayerCombatController>().alive) {

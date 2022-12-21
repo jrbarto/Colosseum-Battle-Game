@@ -1,15 +1,19 @@
 using System.Collections;
 using UnityEngine;
 
-public abstract class HealthController : MonoBehaviour
+/*
+    Controller for all aspects related to health points. This includes taking damage,
+    displaying health, and dying.
+*/
+public class HealthController : MonoBehaviour
 {
     public int healthPoints;
     public int maxHealthPoints;
-    protected float secondsBetweenHit = 0.5f;
-    protected float lastHitTime;
+    private float damageBufferTimer = 0.5f;
+    private float lastHitTime;
 
     public void TakeDamage(int damage) {
-        if (Time.time - lastHitTime >= secondsBetweenHit && healthPoints > 0) {
+        if (Time.time - lastHitTime >= damageBufferTimer && healthPoints > 0) {
             healthPoints -= damage;
             lastHitTime = Time.time;
         }

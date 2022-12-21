@@ -1,6 +1,10 @@
 using System.Collections;
 using UnityEngine;
 
+/*
+    The controller for combat related aspects of the combatant. Such as attacking,
+    aspects related to handling the weapon, or the CPU chasing the player. 
+*/
 public class CombatController : MonoBehaviour
 {
     public GameObject attackingArm;
@@ -13,6 +17,16 @@ public class CombatController : MonoBehaviour
     void Awake () {
         weaponCollider = weapon.transform.GetComponent<Collider>();
         weaponAttack = gameObject.GetComponentInChildren<WeaponAttack>();
+        weaponAttack.attackRange = calcAttackRange();
+    }
+
+    float calcAttackRange () {
+        float highestArmPoint = attackingArm.GetComponent<Collider>().bounds.max.y;
+        Collider weaponCollider = weapon.GetComponent<Collider>();
+        weaponCollider.enabled = true;
+        float highestWeaponPoint = weaponCollider.bounds.max.y;
+        weaponCollider.enabled = false;
+        return highestWeaponPoint - highestArmPoint;
     }
 
     public void dropWeapon() {

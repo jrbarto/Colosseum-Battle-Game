@@ -4,7 +4,6 @@ public class PlayerHealthController : HealthController
 {
     private Camera mainCam;
 
-    // Start is called before the first frame update
     void Start()
     {
         mainCam = gameObject.GetComponentInChildren<Camera>();

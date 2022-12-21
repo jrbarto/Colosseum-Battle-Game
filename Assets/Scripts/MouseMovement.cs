@@ -14,14 +14,12 @@ public class MouseMovement : MonoBehaviour
     private float maxVertAngle = 45.0f;
     private float vertAngle = 0;
 
-    // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         // gets component in gameobject or any of its parents
