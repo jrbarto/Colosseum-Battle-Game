@@ -1280,6 +1280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPoints: 5
   maxHealthPoints: 5
+  boxBorder: {fileID: 2800000, guid: 0ff216e090b12595cb57a17ab93a5c5c, type: 3}
 --- !u!114 &890574976
 MonoBehaviour:
   m_ObjectHideFlags: 0
