@@ -5,6 +5,10 @@ public class PlayerHealthController : HealthController
     public Texture2D boxBorder;
     private Camera mainCam;
 
+    void Awake() {
+        gameObject.tag = "Player";
+    }
+    
     void Start()
     {
         mainCam = gameObject.GetComponentInChildren<Camera>();

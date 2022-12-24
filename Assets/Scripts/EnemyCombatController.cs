@@ -8,6 +8,10 @@ public class EnemyCombatController : CombatController
     public float turningSpeed = 5.0f;
     private bool turning = false;
 
+    void Start() {
+        player = GameObject.FindGameObjectsWithTag("Player")[0];
+    }
+
     void Update()
     {
         if (!alive || !player.GetComponent<PlayerCombatController>().alive) {
