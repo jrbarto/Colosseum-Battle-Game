@@ -15,6 +15,7 @@ public class CombatController : MonoBehaviour
     private Collider weaponCollider;
 
     void Awake () {
+        weapon = attackingArm.transform.GetChild(0).gameObject;
         weaponCollider = weapon.transform.GetComponent<Collider>();
         weaponAttack = gameObject.GetComponentInChildren<WeaponAttack>();
         weaponAttack.attackRange = calcAttackRange();

@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class EnemyCombatController : CombatController
 {
-    public GameObject player;
     public float movementSpeed = 5.0f;
     public float turningSpeed = 5.0f;
+    private GameObject player;
     private bool turning = false;
 
     void Start() {
