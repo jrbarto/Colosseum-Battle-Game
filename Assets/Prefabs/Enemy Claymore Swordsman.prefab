@@ -438,7 +438,6 @@ MonoBehaviour:
   weapon: {fileID: 4298425207619293316}
   weaponAttack: {fileID: 0}
   alive: 1
-  player: {fileID: 0}
   movementSpeed: 4
   turningSpeed: 4
 --- !u!114 &2455393868639670989
@@ -657,4 +656,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRange: 0.7
   attackSpeed: 1.5
-  damage: 2
+  damage: 3

@@ -31,7 +31,9 @@ public class HealthController : MonoBehaviour
         combatController.alive = false;
         combatController.dropWeapon();
         StartCoroutine(Collapse());
-        StartCoroutine(Disappear());
+        if (this is EnemyHealthController) {
+            ((EnemyHealthController)this).Disappear();
+        }
     }
 
     private IEnumerator Collapse() {
@@ -42,10 +44,5 @@ public class HealthController : MonoBehaviour
             angle = transform.localEulerAngles.x;
             yield return null;
         }
-    }
-
-    private IEnumerator Disappear() {
-        yield return new WaitForSeconds(30);
-        GameObject.Destroy(gameObject);
     }
 }
