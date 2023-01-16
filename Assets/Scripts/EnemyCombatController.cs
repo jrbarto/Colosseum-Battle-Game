@@ -46,7 +46,8 @@ public class EnemyCombatController : CombatController
     }
 
     IEnumerator turn(float angleToTarget) {
-        float rotationPerFrame = (angleToTarget < 0 ? 50.0f : -50.0f) * turningSpeed;
+        float calcTurnSpeed = attacking ? turningSpeed * 0.7f : turningSpeed;
+        float rotationPerFrame = (angleToTarget < 0 ? 50.0f : -50.0f) * calcTurnSpeed;
         float rotated = 0.0f;
         turning = true;
         while (Mathf.Abs(rotated) < Mathf.Abs(angleToTarget)) {

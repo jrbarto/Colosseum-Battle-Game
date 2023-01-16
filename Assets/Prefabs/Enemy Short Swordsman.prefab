@@ -306,7 +306,6 @@ MonoBehaviour:
   weapon: {fileID: 6600773660727116329}
   weaponAttack: {fileID: 0}
   alive: 1
-  player: {fileID: 0}
   movementSpeed: 5
   turningSpeed: 5
 --- !u!114 &6294837649822943588
