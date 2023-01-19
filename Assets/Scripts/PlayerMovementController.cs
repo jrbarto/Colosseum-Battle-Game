@@ -5,81 +5,45 @@ using UnityEngine.UI;
 public class PlayerMovementController : MonoBehaviour
 {
     public float speed = 9.0f;
-    public int maxStamina = 3;
+    public int maxStaminaPoints = 3;
     public int staminaRegenRate = 20;
-    public Texture2D boxBorder;
-    public Texture2D staminaTexture;
-    public Canvas radialCanvas;
-    private int stamina;
+    public Canvas uiCanvas;
+    private int staminaPoints;
     private float gravity = -9.8f;
     private Vector3? dashVector = null;
     private float? staminaRegenTimer = null;
     private bool runOnce = false;
-    private float stamBarWidth;
-    CharacterController controller;
+    private CharacterController controller;
+    private int oldStaminaPoints;
+    private RectTransform staminaBar;
+    private Transform staminaRadialTransform;
+    private GameObject staminaText;
+    private float maxStaminaBarLength;
+    private float maxStaminaBarPoints = 20;
 
     void Start()
     {
-        stamina = maxStamina;
+        staminaPoints = maxStaminaPoints;
         controller = gameObject.GetComponent<CharacterController>();
-    }
-
-    void OnGUI() {
-        int cursorSize = 20;
-        int cursorX = Camera.main.pixelWidth / 2 - cursorSize / 4;
-        int cursorY = Camera.main.pixelHeight / 2 - cursorSize / 2;
-        GUI.Label(new Rect(cursorX, cursorY, cursorSize, cursorSize), "+");
-        int staminaY = Screen.height - 40;
-        int staminaX = Screen.width / 40;
-        int boxHeight = 20 + Camera.main.pixelHeight / 70;
-        float staminaLengthCap = 20.0f;
-        Rect staminaBox;
-        string staminaText;
-        float boxWidth = ((Camera.main.pixelWidth - staminaX * 2) / ((float)maxStamina  / (float)stamina)) * (maxStamina / (staminaLengthCap + (maxStamina - staminaLengthCap > 0 ? maxStamina - staminaLengthCap : 0)));
-        staminaBox = new Rect(staminaX, staminaY, boxWidth, boxHeight);
-        if (stamina > 0 && gameObject.GetComponent<PlayerCombatController>().alive) {
-            staminaText = $"{stamina.ToString()} / {maxStamina.ToString()}";
-        } else {
-            staminaText = "";
-        }
-        
-        GUI.DrawTexture(staminaBox, staminaTexture, ScaleMode.StretchToFill, false);
-        GUIStyle boxStyle = new GUIStyle();
-        boxStyle.alignment = TextAnchor.MiddleCenter;
-        boxStyle.fontSize = Camera.main.pixelHeight / 30;
-        boxStyle.normal.textColor = Color.white;
-        boxStyle.border = new RectOffset(2, 2, 2, 2);
-        boxStyle.normal.background = boxBorder;
-        GUI.Box(staminaBox, staminaText, boxStyle);
-        RectTransform[] radialRects = radialCanvas.GetComponentsInChildren<RectTransform>();
-        float canvasWidth = radialCanvas.GetComponent<RectTransform>().rect.width;
-        Debug.Log(Camera.main.pixelWidth);
-        if (!runOnce) {
-            foreach (RectTransform radialRect in radialRects) {
-                radialRect.localPosition = radialRect.localPosition + new Vector3((-canvasWidth/2) + boxWidth + staminaX, 0, 0);
-            }
-            runOnce = true;
-        } else {
-            if (stamBarWidth != boxWidth) {
-                foreach (RectTransform radialRect in radialRects) {
-                    radialRect.localPosition = radialRect.localPosition + new Vector3(boxWidth - stamBarWidth, 0, 0);
-                }
-            }
-        }
-        stamBarWidth = boxWidth;
+        Transform staminaBarTransform = uiCanvas.transform.Find("Stamina Bar");
+        staminaBar = staminaBarTransform.GetComponent<RectTransform>();
+        staminaText = staminaBarTransform.Find("Stamina Text").gameObject;
+        maxStaminaBarLength = staminaBar.rect.width;
+        staminaRadialTransform = uiCanvas.transform.Find("Stamina Radial");
     }
 
     void Update()
     {
-        if (!gameObject.GetComponent<PlayerCombatController>().alive) {
+        bool alive = gameObject.GetComponent<PlayerCombatController>().alive;
+        if (!alive) {
             return;
         }
         if (staminaRegenTimer == null) {
             staminaRegenTimer = staminaRegenRate;
-        } else if (stamina == maxStamina) {
+        } else if (staminaPoints == maxStaminaPoints) {
             staminaRegenTimer = null;
         } else if (staminaRegenTimer <= 0) {
-            stamina += 1;
+            staminaPoints += 1;
             staminaRegenTimer = staminaRegenRate;
         } else {
             staminaRegenTimer -= Time.deltaTime;
@@ -89,8 +53,8 @@ public class PlayerMovementController : MonoBehaviour
 
         if (dashVector != null) {
             movement = (Vector3)dashVector;
-        } else if (stamina >= 1 && Input.GetKeyDown(KeyCode.LeftShift) ) {
-            stamina -= 1;
+        } else if (staminaPoints >= 1 && Input.GetKeyDown(KeyCode.LeftShift) ) {
+            staminaPoints -= 1;
             StartCoroutine(dash(movement));
         } else {
             movement = Vector3.ClampMagnitude(movement, speed);
@@ -98,6 +62,27 @@ public class PlayerMovementController : MonoBehaviour
 
         movement = transform.TransformDirection(movement);
         controller.Move(movement);
+
+        if (staminaPoints == 0 || !alive) {
+            staminaText.GetComponent<Text>().text = "";
+        } else {
+            staminaText.GetComponent<Text>().text = $"{staminaPoints.ToString()} / {maxStaminaPoints.ToString()}";
+        }
+        if (staminaPoints != oldStaminaPoints) {
+            if (maxStaminaPoints > maxStaminaBarPoints) {
+                maxStaminaBarPoints = maxStaminaPoints;
+            }
+            float staminaBarRatio = staminaPoints / maxStaminaBarPoints;
+            float currentLength = staminaBar.rect.width;
+            staminaBar.sizeDelta = new Vector2(maxStaminaBarLength * staminaBarRatio, staminaBar.rect.height);
+            staminaBar.localPosition -= new Vector3((currentLength - staminaBar.rect.width) / 2, 0, 0);
+            staminaRadialTransform.localPosition = new Vector3(
+                staminaBar.localPosition.x + (staminaBar.sizeDelta.x / 2) + 10, 
+                staminaRadialTransform.localPosition.y, 
+                staminaRadialTransform.localPosition.z
+            );
+            oldStaminaPoints = staminaPoints;
+        }
     }
 
     IEnumerator dash(Vector3 movement) {

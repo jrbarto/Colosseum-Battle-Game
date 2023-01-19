@@ -12,6 +12,10 @@ public class HealthController : MonoBehaviour
     private float damageBufferTimer = 0.5f;
     private float lastHitTime;
 
+
+    void Awake() {
+        healthPoints = maxHealthPoints;
+    }
     public void TakeDamage(int damage) {
         if (Time.time - lastHitTime >= damageBufferTimer && healthPoints > 0) {
             healthPoints -= damage;

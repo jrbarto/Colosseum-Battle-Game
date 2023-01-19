@@ -1,40 +1,40 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealthController : HealthController
 {
-    public Texture2D boxBorder;
+    public Canvas uiCanvas;
+    private int oldHealthPoints;
+    private RectTransform healthBar;
+    private GameObject healthText;
+    private float maxHealthBarLength;
+    private float maxHealthBarPoints = 20.0f;
 
-    void Awake() {
+    void Start() {
         gameObject.tag = "Player";
+        GameObject healthBarObject = uiCanvas.transform.Find("Health Bar").gameObject;
+        healthBar = healthBarObject.transform.GetComponent<RectTransform>();
+        healthText = healthBarObject.transform.Find("Health Text").gameObject;
+        maxHealthBarLength = healthBar.rect.width;
     }
-    
 
-    void OnGUI() {
-        int cursorSize = 20;
-        int cursorX = Camera.main.pixelWidth / 2 - cursorSize / 4;
-        int cursorY = Camera.main.pixelHeight / 2 - cursorSize / 2;
-        GUI.Label(new Rect(cursorX, cursorY, cursorSize, cursorSize), "+");
-        int healthY = Camera.main.pixelHeight - 80;
-        int healthX = 30;
-        int boxHeight = 20 + Camera.main.pixelHeight / 70;
-        float hpLengthCap = 20.0f;
-        Rect healthBox;
-        string healthText;
-        if (healthPoints <= 0) {
-            healthBox = new Rect(healthX, healthY, Camera.main.pixelWidth - healthX * 2, boxHeight);
-            healthText = "YOU ARE DEAD";
+    void Update() {
+        if (healthPoints == 0) {
+            healthText.GetComponent<Text>().text = "You Are Dead!";
+            healthBar.sizeDelta = new Vector2(maxHealthBarLength, healthBar.rect.height);
+            healthBar.localPosition = new Vector3(-10, healthBar.localPosition.y, healthBar.localPosition.z);
         } else {
-            float boxWidth = ((Camera.main.pixelWidth - healthX * 2) / ((float)maxHealthPoints  / (float)healthPoints)) * (maxHealthPoints / (hpLengthCap + (maxHealthPoints - hpLengthCap > 0 ? maxHealthPoints - hpLengthCap : 0)));
-            healthBox = new Rect(healthX, healthY, boxWidth, boxHeight);
-            healthText = $"{healthPoints.ToString()} / {maxHealthPoints.ToString()}";
+            healthText.GetComponent<Text>().text = $"{healthPoints.ToString()} / {maxHealthPoints.ToString()}";
+            if (healthPoints != oldHealthPoints) {
+                if (maxHealthPoints > maxHealthBarPoints) {
+                    maxHealthBarPoints = maxHealthPoints;
+                }
+                float healthBarRatio = healthPoints / maxHealthBarPoints;
+                float currentLength = healthBar.rect.width;
+                healthBar.sizeDelta = new Vector2(maxHealthBarLength * healthBarRatio, healthBar.rect.height);
+                healthBar.localPosition -= new Vector3((currentLength - healthBar.rect.width) / 2, 0, 0);
+                oldHealthPoints = healthPoints;
+            }
         }
-        GUI.DrawTexture(healthBox, Texture2D.redTexture, ScaleMode.StretchToFill, false);
-        GUIStyle boxStyle = new GUIStyle();
-        boxStyle.alignment = TextAnchor.MiddleCenter;
-        boxStyle.fontSize = Camera.main.pixelHeight / 30;
-        boxStyle.normal.textColor = Color.white;
-        boxStyle.border = new RectOffset(2, 2, 2, 2);
-        boxStyle.normal.background = boxBorder;
-        GUI.Box(healthBox, healthText, boxStyle);
     }
 }
