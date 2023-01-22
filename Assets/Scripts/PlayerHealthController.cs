@@ -19,7 +19,7 @@ public class PlayerHealthController : HealthController
     }
 
     void Update() {
-        if (healthPoints == 0) {
+        if (healthPoints <= 0) {
             healthText.GetComponent<Text>().text = "You Are Dead!";
             healthBar.sizeDelta = new Vector2(maxHealthBarLength, healthBar.rect.height);
             healthBar.localPosition = new Vector3(-10, healthBar.localPosition.y, healthBar.localPosition.z);

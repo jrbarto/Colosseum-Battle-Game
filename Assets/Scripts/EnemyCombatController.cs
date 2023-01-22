@@ -6,7 +6,6 @@ public class EnemyCombatController : CombatController
     public float movementSpeed = 5.0f;
     public float turningSpeed = 5.0f;
     private GameObject player;
-    private bool turning = false;
 
     void Start() {
         player = GameObject.FindGameObjectsWithTag("Player")[0];
@@ -32,7 +31,7 @@ public class EnemyCombatController : CombatController
                     StartCoroutine(attack());
                 } 
             }
-        } else if (!turning) {
+        } else {
             Vector3 movement = transform.InverseTransformDirection(transform.forward * movementSpeed * Time.deltaTime);
             transform.Translate(movement);
         }
@@ -40,21 +39,11 @@ public class EnemyCombatController : CombatController
         float chaseAngle = 5.0f;
         Vector3 targetDir = (player.transform.position - transform.position).normalized;
         float angleToTarget = Vector3.SignedAngle(targetDir, transform.forward, Vector3.up);
-        if (Mathf.Abs(angleToTarget) > chaseAngle && !turning) {
-            StartCoroutine(turn(angleToTarget));
+        if (Mathf.Abs(angleToTarget) > chaseAngle) {
+            Vector3 targetRotation = transform.rotation.eulerAngles;
+            targetRotation.y = targetRotation.y - angleToTarget;
+            float calcTurnSpeed = attacking ? turningSpeed * 0.7f : turningSpeed;
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(targetRotation), Time.deltaTime * calcTurnSpeed);
         }
-    }
-
-    IEnumerator turn(float angleToTarget) {
-        float calcTurnSpeed = attacking ? turningSpeed * 0.7f : turningSpeed;
-        float rotationPerFrame = (angleToTarget < 0 ? 50.0f : -50.0f) * calcTurnSpeed;
-        float rotated = 0.0f;
-        turning = true;
-        while (Mathf.Abs(rotated) < Mathf.Abs(angleToTarget)) {
-            transform.Rotate(0, rotationPerFrame * Time.deltaTime, 0);
-            rotated += rotationPerFrame;
-            yield return null;
-        }
-        turning = false;
     }
 }
