@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: dd89377eaef5ac7719331f9b307fb807
+guid: e336d68898756055c8268b6b84823863
 ModelImporter:
   serializedVersion: 20300
   internalIDToNameTable: []
@@ -8,17 +8,17 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: TexturesCom_Brick_StoneCladding5_512_albedo
-    second: {fileID: 2800000, guid: 96b9af578e0faf6d5970827bd6ee5a4b, type: 3}
+    second: {fileID: 2800000, guid: 46741d035e5413712b8e47a8cc0dac60, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: TexturesCom_Marble_SlabSpeckled_1K_albedo
-    second: {fileID: 2800000, guid: 34a05251fb5c9541e887eb3e21433f87, type: 3}
+    second: {fileID: 2800000, guid: 61d5a9cbd09391124a6770c085b8b1c5, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: TexturesCom_Metal_PaintedGun_1K_albedo
-    second: {fileID: 2800000, guid: d5e59b5486f171f9c8e7d7f85589fce6, type: 3}
+    second: {fileID: 2800000, guid: 02f17023c399e3ad9866bbded217a7d6, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -5,6 +5,7 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] GameObject[] enemyPrefabs;
     GameObject enemy;
+    GameObject rearGate;
     public int respawnSeconds = 30;
     private int level;
     private int? timer;
@@ -17,6 +18,7 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         level = 0;
+        rearGate = GameObject.FindGameObjectWithTag("RearGate");
     }
 
     void OnGUI() {
@@ -43,11 +45,19 @@ public class EnemySpawner : MonoBehaviour
     void Update()
     {
         if (enemy == null) {
+            rearGate.GetComponent<GateControl>().SetGateDirection(1);
             enemy = Instantiate(enemyPrefabs[level % enemyPrefabs.Length]);
+            StartCoroutine(WaitToActivateEnemy(enemy.GetComponent<EnemyCombatController>()));
             enemy.transform.position = new Vector3(transform.position.x, enemy.transform.position.y, transform.position.z);
             enemy.transform.rotation = transform.rotation;
             level += 1;
         }
+    }
+
+    public IEnumerator WaitToActivateEnemy(EnemyCombatController controller) {
+        controller.enabled = false;
+        yield return new WaitForSeconds(5);
+        controller.enabled = true;
     }
 
     public IEnumerator DespawnEnemy(GameObject deadEnemy) {
