@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HideRearGateTop : MonoBehaviour
+public class HideGateTop : MonoBehaviour
 {
     void OnTriggerEnter(Collider otherCollider) {
         ToggleGateTop(otherCollider.gameObject, false);
@@ -14,8 +14,8 @@ public class HideRearGateTop : MonoBehaviour
 
     void ToggleGateTop(GameObject collisionObject, bool active) {
         if (collisionObject.name == "Gate Sensor Activator") {
-            GameObject rearGateTop = collisionObject.transform.parent.Find("Top Section").gameObject;
-            rearGateTop.SetActive(active);
+            GameObject gateTop = collisionObject.transform.parent.Find("Top Section").gameObject;
+            gateTop.SetActive(active);
         }
     }
 }
