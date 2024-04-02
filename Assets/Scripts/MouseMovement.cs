@@ -31,7 +31,8 @@ public class MouseMovement : MonoBehaviour
         if (axis == Axes.Y || axis == Axes.BOTH) {
             vertAngle -= Input.GetAxis("Mouse Y") * verticalSensitivity;
             vertAngle = Mathf.Clamp(vertAngle, minVertAngle, maxVertAngle);
-        } else if (axis == Axes.X || axis == Axes.BOTH) {
+        }
+        if (axis == Axes.X || axis == Axes.BOTH) {
             horizontalAngle += Input.GetAxis("Mouse X") * horizontalSensitivity;
         }
         transform.localEulerAngles = new Vector3(vertAngle, horizontalAngle, 0);

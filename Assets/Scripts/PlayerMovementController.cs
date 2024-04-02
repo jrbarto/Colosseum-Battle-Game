@@ -84,7 +84,7 @@ public class PlayerMovementController : MonoBehaviour
             movement = (Vector3)dashVector;
         } else if (
             staminaPoints >= 1 && 
-            Input.GetKeyDown(KeyCode.LeftShift) &&
+            Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift) &&
             (movement.x != 0 || movement.z != 0)
         ) {
             staminaPoints -= 1;

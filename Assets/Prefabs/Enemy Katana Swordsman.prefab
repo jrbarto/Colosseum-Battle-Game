@@ -306,8 +306,8 @@ MonoBehaviour:
   weapon: {fileID: 8586873158439282179}
   weaponAttack: {fileID: 0}
   alive: 1
-  movementSpeed: 6
-  turningSpeed: 6
+  movementSpeed: 2
+  turningSpeed: 2
 --- !u!114 &2959306888347087734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -655,5 +655,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackRange: 0.7
-  attackSpeed: 3
-  damage: 2
+  attackSpeed: 1
+  damage: 1

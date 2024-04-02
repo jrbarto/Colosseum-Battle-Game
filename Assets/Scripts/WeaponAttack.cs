@@ -15,6 +15,7 @@ public class WeaponAttack : MonoBehaviour
         GameObject foundObject = other.gameObject;
         GetCombatant getCombatant = foundObject.GetComponent<GetCombatant>();
         if (getCombatant != null) {
+            Debug.Log("HIT SOMETHING!");
             foundObject = getCombatant.combatant;
         }
         if (foundObject == selfCombatant) {
