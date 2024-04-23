@@ -25,17 +25,37 @@ public class HealthController : MonoBehaviour
         if (this is EnemyHealthController) {
             ((EnemyHealthController)this).healthText.text = $"{healthPoints}/{maxHealthPoints}";
         }
-        if (combatController.alive && healthPoints <= 0) {
+        if (combatController != null && combatController.alive && healthPoints <= 0) {
+            Die();
+        }
+
+        // this will not be needed when I consolidate the new combat controller for player and enemy
+        CombatControllerUpdated combatController2 = gameObject.GetComponent<CombatControllerUpdated>();
+        if (combatController2 != null && combatController2.alive && healthPoints <= 0) {
             Die();
         }
     }
 
     private void Die() {
         CombatController combatController = gameObject.GetComponent<CombatController>();
-        combatController.alive = false;
-        combatController.dropWeapon();
-        StartCoroutine(Collapse());
+        if (combatController != null) {
+            combatController.alive = false;
+            combatController.dropWeapon();
+        }
+
+        // this will not be needed when I consolidate the new combat controller for player and enemy
+        CombatControllerUpdated combatController2 = gameObject.GetComponent<CombatControllerUpdated>();
+        if (combatController2 != null) {
+            combatController2.alive = false;
+            combatController2.dropWeapon();
+        }
+        
+        if (this is PlayerHealthController) {
+            StartCoroutine(Collapse());
+        }
         if (this is EnemyHealthController) {
+            Animator animator = gameObject.GetComponent<Animator>();
+            animator.SetBool("dead", true);
             ((EnemyHealthController)this).Disappear();
         }
     }

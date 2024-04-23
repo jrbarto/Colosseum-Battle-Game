@@ -20,6 +20,7 @@ public class CombatControllerUpdated : MonoBehaviour
         weaponAttack = gameObject.GetComponentInChildren<WeaponAttack>();
         weaponAttack.attackRange = calcAttackRange();
         animator = gameObject.GetComponent<Animator>();
+        animator.SetBool("twoHandedWeapon", weaponAttack.twoHanded);
     }
 
     float calcAttackRange () {
@@ -37,8 +38,7 @@ public class CombatControllerUpdated : MonoBehaviour
         );
 
         weaponCollider.enabled = false;
-        Debug.Log("RETURNING ATTACK RANGE " + Vector3.Distance(closestArmPoint, farthestWeaponPoint));
-        return Vector3.Distance(closestArmPoint, farthestWeaponPoint);
+        return Vector3.Distance(closestArmPoint, farthestWeaponPoint) - 0.2f;
     }
 
     public void dropWeapon() {
@@ -47,8 +47,6 @@ public class CombatControllerUpdated : MonoBehaviour
         weaponCollider.enabled = true;
         weaponCollider.isTrigger = false;
         weapon.transform.GetComponent<Rigidbody>().useGravity = true;
-        attackingArm.transform.Rotate(new Vector3(0, 0, 80));
-        attackingArm.transform.Translate(new Vector3(0.2f, -0.3f, 0));
     }
 
     protected void attack() {

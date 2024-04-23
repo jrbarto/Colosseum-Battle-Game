@@ -5,6 +5,7 @@ public class WeaponAttack : MonoBehaviour
     public float attackRange = 0.7f;
     public float attackSpeed = 2.0f;
     public int damage = 1;
+    public bool twoHanded = false;
     private GameObject selfCombatant;
 
     void Start() {
@@ -15,7 +16,6 @@ public class WeaponAttack : MonoBehaviour
         GameObject foundObject = other.gameObject;
         GetCombatant getCombatant = foundObject.GetComponent<GetCombatant>();
         if (getCombatant != null) {
-            Debug.Log("HIT SOMETHING!");
             foundObject = getCombatant.combatant;
         }
         if (foundObject == selfCombatant) {

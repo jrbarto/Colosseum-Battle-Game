@@ -12,6 +12,15 @@ ModelImporter:
   - first:
       74: -4274770991410265338
     second: Armature|Walking
+  - first:
+      74: 6059336001588132254
+    second: Armature|Die
+  - first:
+      74: 3339397284467329556
+    second: Armature|Twohand Sword Down Swing
+  - first:
+      74: -673803155713979123
+    second: Armature|Twohand Walking
   externalObjects:
   - first:
       type: UnityEngine:Material
