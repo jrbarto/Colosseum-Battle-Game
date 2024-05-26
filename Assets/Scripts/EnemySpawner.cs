@@ -47,14 +47,14 @@ public class EnemySpawner : MonoBehaviour
         if (enemy == null) {
             rearGate.GetComponent<GateControl>().SetGateDirection(1);
             enemy = Instantiate(enemyPrefabs[level % enemyPrefabs.Length]);
-            StartCoroutine(WaitToActivateEnemy(enemy.GetComponent<EnemyCombatController>()));
+            StartCoroutine(WaitToActivateEnemy(enemy.GetComponent<EnemyCombatControllerUpdated>()));
             enemy.transform.position = new Vector3(transform.position.x, enemy.transform.position.y, transform.position.z);
             enemy.transform.rotation = transform.rotation;
             level += 1;
         }
     }
 
-    public IEnumerator WaitToActivateEnemy(EnemyCombatController controller) {
+    public IEnumerator WaitToActivateEnemy(EnemyCombatControllerUpdated controller) {
         controller.enabled = false;
         yield return new WaitForSeconds(5);
         controller.enabled = true;

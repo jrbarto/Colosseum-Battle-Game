@@ -38,7 +38,7 @@ public class CombatControllerUpdated : MonoBehaviour
         );
 
         weaponCollider.enabled = false;
-        return Vector3.Distance(closestArmPoint, farthestWeaponPoint) - 0.2f;
+        return Vector3.Distance(closestArmPoint, farthestWeaponPoint) - 0.3f;
     }
 
     public void dropWeapon() {
@@ -50,8 +50,8 @@ public class CombatControllerUpdated : MonoBehaviour
     }
 
     protected void attack() {
-        Collider weaponCollider = weapon.GetComponent<Collider>();
-        weaponCollider.enabled = true;
+        //Collider weaponCollider = weapon.GetComponent<Collider>();
+        //weaponCollider.enabled = true;
         animator.SetBool("walking", false);
         animator.SetBool("attacking", true);
     }

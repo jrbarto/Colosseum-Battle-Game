@@ -3511,6 +3511,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackRange: 0.7
-  attackSpeed: 4
-  damage: 2
+  attackSpeed: 1
+  damage: 1
   twoHanded: 1

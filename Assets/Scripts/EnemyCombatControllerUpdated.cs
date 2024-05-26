@@ -36,10 +36,10 @@ public class EnemyCombatControllerUpdated : CombatControllerUpdated
             if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1) {
                 currentAnimation = animator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
             }
-            if (currentAnimation != "Armature|Onehand Sword Down Swing") {
+            //if (currentAnimation != "Armature|Onehand Sword Down Swing") {
                 Vector3 movement = transform.InverseTransformDirection(transform.forward * movementSpeed * Time.deltaTime);
                 transform.Translate(movement);
-            }
+            //}
         }
 
         float chaseAngle = 5.0f;
