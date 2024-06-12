@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /*
@@ -18,27 +19,49 @@ public class CombatControllerUpdated : MonoBehaviour
         weapon = attackingArm.transform.GetChild(0).gameObject;
         weaponCollider = weapon.transform.GetComponent<Collider>();
         weaponAttack = gameObject.GetComponentInChildren<WeaponAttack>();
-        weaponAttack.attackRange = calcAttackRange();
         animator = gameObject.GetComponent<Animator>();
         animator.SetBool("twoHandedWeapon", weaponAttack.twoHanded);
+        weaponAttack.attackRange = calcAttackRange();
     }
 
-    float calcAttackRange () {
-        Collider armCollider = attackingArm.GetComponent<Collider>();
+    private float calcAttackRange () {
+        List<Vector3> vertexPoints = new List<Vector3>();
         Collider weaponCollider = weapon.GetComponent<Collider>();
         weaponCollider.enabled = true;
-
-        Vector3 armPosition = transform.TransformPoint(attackingArm.transform.position);
-        Vector3 weaponPosition = transform.TransformPoint(weapon.transform.position);
-        Vector3 direction = armPosition - weaponPosition;
-
-        Vector3 closestArmPoint = armCollider.ClosestPoint(weaponPosition);
-        Vector3 farthestWeaponPoint = weaponCollider.bounds.ClosestPoint(
-            armPosition + direction.normalized * weaponCollider.bounds.extents.magnitude
-        );
-
+        Collider armCollider = attackingArm.GetComponent<Collider>();
+        Vector3 armPoint = armCollider.ClosestPointOnBounds(weaponCollider.transform.position);
+ 
+        vertexPoints.Add (weaponCollider.bounds.max);
+        vertexPoints.Add (weaponCollider.bounds.min);
+        //vertexPoints.Add (new Vector3 (weaponCollider.bounds.max.x, weaponCollider.bounds.max.y, weaponCollider.bounds.max.z)); 
+        vertexPoints.Add (new Vector3 (weaponCollider.bounds.max.x, weaponCollider.bounds.max.y, weaponCollider.bounds.min.z));    
+        vertexPoints.Add (new Vector3 (weaponCollider.bounds.max.x, weaponCollider.bounds.min.y, weaponCollider.bounds.min.z));      
+        vertexPoints.Add (new Vector3 (weaponCollider.bounds.max.x, weaponCollider.bounds.min.y, weaponCollider.bounds.max.z));    
+        vertexPoints.Add (new Vector3 (weaponCollider.bounds.min.x, weaponCollider.bounds.min.y, weaponCollider.bounds.max.z));    
+        vertexPoints.Add (new Vector3 (weaponCollider.bounds.min.x, weaponCollider.bounds.max.y, weaponCollider.bounds.max.z));
+        vertexPoints.Add (new Vector3 (weaponCollider.bounds.min.x, weaponCollider.bounds.max.y, weaponCollider.bounds.min.z));
+        //vertexPoints.Add (new Vector3 (weaponCollider.bounds.min.x, weaponCollider.bounds.min.y, weaponCollider.bounds.min.z)); 
+ 
+        int maxDistanceVector = 0;
+        float distance = 0;
+        Vector3 getCollisionPoint = weaponCollider.ClosestPointOnBounds(armPoint);
+ 
+        for (int i = 0; i < vertexPoints.Count; i++){
+            if (i == 0) {
+                distance = Vector3.Distance(getCollisionPoint, vertexPoints[i]);
+                maxDistanceVector = 0;
+            } else {
+                float newDistance = Vector3.Distance(getCollisionPoint, vertexPoints[i]);
+                if(distance < newDistance){
+                    distance = newDistance;
+                    maxDistanceVector = i;
+                }
+            }
+ 
+        }
+ 
         weaponCollider.enabled = false;
-        return Vector3.Distance(closestArmPoint, farthestWeaponPoint) - 0.3f;
+        return Vector3.Distance(vertexPoints[maxDistanceVector], armPoint);
     }
 
     public void dropWeapon() {

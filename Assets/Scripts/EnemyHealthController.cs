@@ -13,6 +13,6 @@ public class EnemyHealthController : HealthController
     }
 
     public void Disappear() {
-        StartCoroutine(enemySpawner.DespawnEnemy(gameObject));
+        StartCoroutine(enemySpawner.DespawnEnemy(gameObject.transform.parent.gameObject));
     }
 }

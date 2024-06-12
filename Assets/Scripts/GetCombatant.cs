@@ -12,6 +12,8 @@ public class GetCombatant : MonoBehaviour
     public GameObject combatant;
 
     void Start() {
-        combatant = gameObject.GetComponentInParent<HealthController>().gameObject;
+        if (!combatant) {
+            combatant = gameObject.GetComponentInParent<HealthController>().gameObject;
+        }
     }
 }

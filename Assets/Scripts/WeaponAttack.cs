@@ -16,7 +16,7 @@ public class WeaponAttack : MonoBehaviour
         selfCombatant = gameObject.GetComponentInParent<HealthController>().gameObject;
         previousPosition = gameObject.transform.position;
         previousRootPosition = transform.parent.root.transform.position;
-        combatController = transform.parent.root.GetComponent<CombatControllerUpdated>();
+        combatController = transform.GetComponentInParent<CombatControllerUpdated>();
     }
 
     void FixedUpdate() {

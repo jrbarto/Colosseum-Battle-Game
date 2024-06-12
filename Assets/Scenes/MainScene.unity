@@ -2466,9 +2466,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabs:
-  - {fileID: 343436709877032550, guid: e70d363b8ab6ade3ea85efdec2c6e31d, type: 3}
-  - {fileID: 2983917595133631338, guid: 4c5c517b11e5e8b1aa343726cee5a8e4, type: 3}
-  - {fileID: 2959306888347087724, guid: 7de6cbee97947e386afd85a8d9fa566f, type: 3}
+  - {fileID: 1775861205365992007, guid: e70d363b8ab6ade3ea85efdec2c6e31d, type: 3}
+  - {fileID: 4933521732399919825, guid: 4c5c517b11e5e8b1aa343726cee5a8e4, type: 3}
+  - {fileID: 4501884149234067706, guid: 238e456dea224f2d98daa9625415d338, type: 3}
   respawnSeconds: 30
 --- !u!1 &1239765686
 GameObject:
