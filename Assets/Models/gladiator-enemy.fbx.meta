@@ -3,7 +3,42 @@ guid: c555f83ede01279bc94e4a29eb8a35ef
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gold.001
+    second: {fileID: 2100000, guid: 6357459c2a2fbe7c99f1c07bc0422a77, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Leather
+    second: {fileID: 2100000, guid: 5a4fef385c530cf70a9dfe2e271774e9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 6a139e19edce4369e8464ede7a143206, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal_iron
+    second: {fileID: 2100000, guid: b09f937441b5e4f388cae9268723309a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Orangish leather
+    second: {fileID: 2100000, guid: 6eb89a2e16cb2188588ad9401b89eee1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rubber
+    second: {fileID: 2100000, guid: 3bfcf67c5d520342783deed657a06d1d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stylized Medieval Chain
+    second: {fileID: 2100000, guid: be6e91af78e1ce46d84fa00d59651f27, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

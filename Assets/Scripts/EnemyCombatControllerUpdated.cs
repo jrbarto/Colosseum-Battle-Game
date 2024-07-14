@@ -33,10 +33,6 @@ public class EnemyCombatControllerUpdated : CombatControllerUpdated
         } else {
             animator.SetBool("walking", true);
             animator.SetBool("attacking", false);
-            string currentAnimation = "";
-            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1) {
-                currentAnimation = animator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
-            }
             Vector3 movement = transform.InverseTransformDirection(transform.forward * movementSpeed * Time.deltaTime);
             transform.Translate(movement);
         }
