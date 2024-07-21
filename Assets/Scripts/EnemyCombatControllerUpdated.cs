@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyCombatControllerUpdated : CombatControllerUpdated
+public class EnemyCombatController : CombatController
 {
     public float movementSpeed = 5.0f;
     public float turningSpeed = 5.0f;

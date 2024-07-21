@@ -28,12 +28,6 @@ public class HealthController : MonoBehaviour
         if (combatController != null && combatController.alive && healthPoints <= 0) {
             Die();
         }
-
-        // this will not be needed when I consolidate the new combat controller for player and enemy
-        CombatControllerUpdated combatController2 = gameObject.GetComponent<CombatControllerUpdated>();
-        if (combatController2 != null && combatController2.alive && healthPoints <= 0) {
-            Die();
-        }
     }
 
     private void Die() {
@@ -42,31 +36,10 @@ public class HealthController : MonoBehaviour
             combatController.alive = false;
             combatController.dropWeapon();
         }
-
-        // this will not be needed when I consolidate the new combat controller for player and enemy
-        CombatControllerUpdated combatController2 = gameObject.GetComponent<CombatControllerUpdated>();
-        if (combatController2 != null) {
-            combatController2.alive = false;
-            combatController2.dropWeapon();
-        }
-        
-        if (this is PlayerHealthController) {
-            StartCoroutine(Collapse());
-        }
+        Animator animator = gameObject.GetComponent<Animator>();
+        animator.SetBool("dead", true);
         if (this is EnemyHealthController) {
-            Animator animator = gameObject.GetComponent<Animator>();
-            animator.SetBool("dead", true);
             ((EnemyHealthController)this).Disappear();
-        }
-    }
-
-    private IEnumerator Collapse() {
-        float angle = transform.localEulerAngles.x;
-        while ((angle > 180 ? angle - 360 : angle) > -90) {
-            transform.Rotate(new Vector3(-2, 0, 0));
-            transform.Translate(new Vector3(0, 0, -0.02f));
-            angle = transform.localEulerAngles.x;
-            yield return null;
         }
     }
 }

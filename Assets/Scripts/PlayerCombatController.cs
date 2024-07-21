@@ -7,8 +7,10 @@ public class PlayerCombatController : CombatController
         if (!alive) {
             return;
         }
-        if (Input.GetButtonDown("Fire1") && !attacking) {
-            StartCoroutine(attack());
+        if (Input.GetButtonDown("Fire1")) {
+            attack();
+        } else {
+            animator.SetBool("attacking", false);
         }
     }
 }

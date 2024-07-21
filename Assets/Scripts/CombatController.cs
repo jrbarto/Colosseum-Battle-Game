@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /*
@@ -11,23 +12,56 @@ public class CombatController : MonoBehaviour
     public GameObject weapon;
     public WeaponAttack weaponAttack;
     public bool alive = true;
-    protected bool attacking = false;
+    protected Animator animator;
     private Collider weaponCollider;
 
     void Awake () {
         weapon = attackingArm.transform.GetChild(0).gameObject;
         weaponCollider = weapon.transform.GetComponent<Collider>();
         weaponAttack = gameObject.GetComponentInChildren<WeaponAttack>();
+        animator = gameObject.GetComponent<Animator>();
+        animator.SetBool("twoHandedWeapon", weaponAttack.twoHanded);
         weaponAttack.attackRange = calcAttackRange();
     }
 
-    float calcAttackRange () {
-        float highestArmPoint = attackingArm.GetComponent<Collider>().bounds.max.y;
+    private float calcAttackRange () {
+        List<Vector3> vertexPoints = new List<Vector3>();
         Collider weaponCollider = weapon.GetComponent<Collider>();
         weaponCollider.enabled = true;
-        float highestWeaponPoint = weaponCollider.bounds.max.y;
+        Collider armCollider = attackingArm.GetComponent<Collider>();
+        Vector3 armPoint = armCollider.ClosestPointOnBounds(weaponCollider.transform.position);
+ 
+        vertexPoints.Add (weaponCollider.bounds.max);
+        vertexPoints.Add (weaponCollider.bounds.min);
+        //vertexPoints.Add (new Vector3 (weaponCollider.bounds.max.x, weaponCollider.bounds.max.y, weaponCollider.bounds.max.z)); 
+        vertexPoints.Add (new Vector3 (weaponCollider.bounds.max.x, weaponCollider.bounds.max.y, weaponCollider.bounds.min.z));    
+        vertexPoints.Add (new Vector3 (weaponCollider.bounds.max.x, weaponCollider.bounds.min.y, weaponCollider.bounds.min.z));      
+        vertexPoints.Add (new Vector3 (weaponCollider.bounds.max.x, weaponCollider.bounds.min.y, weaponCollider.bounds.max.z));    
+        vertexPoints.Add (new Vector3 (weaponCollider.bounds.min.x, weaponCollider.bounds.min.y, weaponCollider.bounds.max.z));    
+        vertexPoints.Add (new Vector3 (weaponCollider.bounds.min.x, weaponCollider.bounds.max.y, weaponCollider.bounds.max.z));
+        vertexPoints.Add (new Vector3 (weaponCollider.bounds.min.x, weaponCollider.bounds.max.y, weaponCollider.bounds.min.z));
+        //vertexPoints.Add (new Vector3 (weaponCollider.bounds.min.x, weaponCollider.bounds.min.y, weaponCollider.bounds.min.z)); 
+ 
+        int maxDistanceVector = 0;
+        float distance = 0;
+        Vector3 getCollisionPoint = weaponCollider.ClosestPointOnBounds(armPoint);
+ 
+        for (int i = 0; i < vertexPoints.Count; i++){
+            if (i == 0) {
+                distance = Vector3.Distance(getCollisionPoint, vertexPoints[i]);
+                maxDistanceVector = 0;
+            } else {
+                float newDistance = Vector3.Distance(getCollisionPoint, vertexPoints[i]);
+                if(distance < newDistance){
+                    distance = newDistance;
+                    maxDistanceVector = i;
+                }
+            }
+ 
+        }
+ 
         weaponCollider.enabled = false;
-        return highestWeaponPoint - highestArmPoint;
+        return Vector3.Distance(vertexPoints[maxDistanceVector], armPoint);
     }
 
     public void dropWeapon() {
@@ -36,31 +70,12 @@ public class CombatController : MonoBehaviour
         weaponCollider.enabled = true;
         weaponCollider.isTrigger = false;
         weapon.transform.GetComponent<Rigidbody>().useGravity = true;
-        attackingArm.transform.Rotate(new Vector3(0, 0, 80));
-        attackingArm.transform.Translate(new Vector3(0.2f, -0.3f, 0));
     }
 
-    protected IEnumerator attack() {
-        Collider weaponCollider = weapon.GetComponent<Collider>();
-        float maxArmRotation = 350.0f;
-        float minArmRotation = 270.0f;
-        float armRotationPerFrame = 50.0f;
-        attacking = true;
-        weaponCollider.enabled = true;
-        while (attackingArm.transform.localEulerAngles.z < maxArmRotation) {
-            float downwardRotation = armRotationPerFrame * weaponAttack.attackSpeed * Time.deltaTime;
-            attackingArm.transform.Rotate(new Vector3(0, 0, downwardRotation));
-            yield return null;
-        }
-        weaponCollider.enabled = !alive;
-        while (attackingArm.transform.localEulerAngles.z > minArmRotation) {
-            if (!alive) {
-                yield break;
-            }
-            float upwardRotation = -(armRotationPerFrame * weaponAttack.attackSpeed * Time.deltaTime);
-            attackingArm.transform.Rotate(new Vector3(0, 0, upwardRotation));
-            yield return null;
-        }
-        attacking = false;
+    protected void attack() {
+        //Collider weaponCollider = weapon.GetComponent<Collider>();
+        //weaponCollider.enabled = true;
+        animator.SetBool("walking", false);
+        animator.SetBool("attacking", true);
     }
 }

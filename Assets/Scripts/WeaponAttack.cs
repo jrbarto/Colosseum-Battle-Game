@@ -9,14 +9,14 @@ public class WeaponAttack : MonoBehaviour
     private GameObject selfCombatant;
     private Vector3 previousPosition;
     private Vector3 previousRootPosition;
-    private CombatControllerUpdated combatController;
+    private CombatController combatController;
     private float yVelocity;
 
     void Start() {
         selfCombatant = gameObject.GetComponentInParent<HealthController>().gameObject;
         previousPosition = gameObject.transform.position;
         previousRootPosition = transform.parent.root.transform.position;
-        combatController = transform.GetComponentInParent<CombatControllerUpdated>();
+        combatController = transform.GetComponentInParent<CombatController>();
     }
 
     void FixedUpdate() {
