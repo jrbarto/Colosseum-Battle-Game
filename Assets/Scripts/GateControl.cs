@@ -28,7 +28,7 @@ public class GateControl : MonoBehaviour
                 startPosition,
                 new Vector3(
                     startPosition.x, 
-                    gateDirection < 0 ? 0 : maxHeight, 
+                    gateDirection < 0 ? 0 : maxHeight,
                     startPosition.z
                 ),
                 secondsLerped / secondsToLerp

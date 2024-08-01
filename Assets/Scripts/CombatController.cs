@@ -73,9 +73,15 @@ public class CombatController : MonoBehaviour
     }
 
     protected void attack() {
-        //Collider weaponCollider = weapon.GetComponent<Collider>();
-        //weaponCollider.enabled = true;
-        animator.SetBool("walking", false);
-        animator.SetBool("attacking", true);
+        if (this is EnemyCombatController) {
+            animator.SetBool("walking", false);
+            animator.SetBool("attacking", true);
+        } else {
+            if (weaponAttack.twoHanded) {
+                animator.CrossFade("Base Layer.Twohand Attacking", 0.1f);
+            } else {
+                animator.CrossFade("Base Layer.Onehand Attacking", 0.1f);
+            }
+        }
     }
 }

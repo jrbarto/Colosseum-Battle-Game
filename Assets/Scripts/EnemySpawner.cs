@@ -14,7 +14,6 @@ public class EnemySpawner : MonoBehaviour
         gameObject.tag = "EnemySpawner";
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         level = 0;
@@ -41,7 +40,6 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (enemy == null) {

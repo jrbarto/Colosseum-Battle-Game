@@ -14,6 +14,7 @@ public class PlayerMovementController : MonoBehaviour
     private Vector3? dashVector = null;
     private float? staminaRegenTimer = null;
     private bool runOnce = false;
+    private Animator animator;
     private CharacterController controller;
     private int oldStaminaPoints;
     private RectTransform staminaBar;
@@ -26,6 +27,7 @@ public class PlayerMovementController : MonoBehaviour
     void Start()
     {
         staminaPoints = maxStaminaPoints;
+        animator = gameObject.GetComponent<Animator>();
         controller = gameObject.GetComponent<CharacterController>();
         Transform staminaBarTransform = uiCanvas.transform.Find("Stamina Bar");
         staminaBar = staminaBarTransform.GetComponent<RectTransform>();
@@ -90,6 +92,11 @@ public class PlayerMovementController : MonoBehaviour
             staminaPoints -= 1;
             StartCoroutine(dash(movement));
         } else {
+            if (movement.x != 0 || movement.z != 0) {
+                animator.SetBool("walking", true);
+            } else {
+                animator.SetBool("walking", false);
+            }
             movement = Vector3.ClampMagnitude(movement, speed);
         }
 
