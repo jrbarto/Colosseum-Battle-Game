@@ -28,7 +28,7 @@ public class WeaponAttack : MonoBehaviour
             previousRootPosition = rootPosition;
             yVelocity = velocity.y - rootVelocity.y;
             Collider weaponCollider = GetComponent<Collider>();
-            if (yVelocity < -1) {
+            if (yVelocity < -1 && combatController.isAttacking()) {
                 weaponCollider.enabled = true;
             } else {
                 weaponCollider.enabled = false;

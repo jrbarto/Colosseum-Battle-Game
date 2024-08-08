@@ -64,6 +64,11 @@ public class CombatController : MonoBehaviour
         return Vector3.Distance(vertexPoints[maxDistanceVector], armPoint);
     }
 
+    public bool isAttacking() {
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        return stateInfo.IsTag("attacking");
+    }
+
     public void dropWeapon() {
         weapon.transform.parent = null;
         Collider weaponCollider = weapon.transform.GetComponent<Collider>();
