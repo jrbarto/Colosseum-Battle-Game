@@ -6,6 +6,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] GameObject[] enemyPrefabs;
     GameObject enemy;
     GameObject rearGate;
+    MusicController musicPlayer;
     public int respawnSeconds = 30;
     private int level;
     private int? timer;
@@ -18,6 +19,7 @@ public class EnemySpawner : MonoBehaviour
     {
         level = 0;
         rearGate = GameObject.FindGameObjectWithTag("RearGate");
+        musicPlayer = GameObject.FindGameObjectWithTag("MusicPlayer").GetComponent<MusicController>();
     }
 
     void OnGUI() {
@@ -53,12 +55,14 @@ public class EnemySpawner : MonoBehaviour
     }
 
     public IEnumerator WaitToActivateEnemy(EnemyCombatController controller) {
+        musicPlayer.PlayMusic(true);
         controller.enabled = false;
         yield return new WaitForSeconds(5);
         controller.enabled = true;
     }
 
     public IEnumerator DespawnEnemy(GameObject deadEnemy) {
+        musicPlayer.PlayMusic(false);
         timer = respawnSeconds;
         while (timer >=0) {
             yield return new WaitForSeconds(1);

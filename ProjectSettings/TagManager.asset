@@ -8,6 +8,7 @@ TagManager:
   - EnemySpawner
   - RearGate
   - FrontGate
+  - MusicPlayer
   layers:
   - Default
   - TransparentFX
