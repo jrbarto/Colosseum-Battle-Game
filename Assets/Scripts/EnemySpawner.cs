@@ -55,14 +55,14 @@ public class EnemySpawner : MonoBehaviour
     }
 
     public IEnumerator WaitToActivateEnemy(EnemyCombatController controller) {
-        musicPlayer.PlayMusic(true);
+        musicPlayer.PlayMusic(MusicController.MusicTheme.Action);
         controller.enabled = false;
         yield return new WaitForSeconds(5);
         controller.enabled = true;
     }
 
     public IEnumerator DespawnEnemy(GameObject deadEnemy) {
-        musicPlayer.PlayMusic(false);
+        musicPlayer.PlayMusic(MusicController.MusicTheme.Waiting);
         timer = respawnSeconds;
         while (timer >=0) {
             yield return new WaitForSeconds(1);

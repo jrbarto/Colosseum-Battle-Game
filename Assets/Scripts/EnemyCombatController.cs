@@ -15,6 +15,8 @@ public class EnemyCombatController : CombatController
     void Update()
     {
         if (!alive || !player.GetComponent<PlayerCombatController>().alive) {
+            animator.SetBool("walking", false);
+            animator.SetBool("attacking", false);
             return;
         }
 

@@ -40,6 +40,9 @@ public class HealthController : MonoBehaviour
         animator.SetBool("dead", true);
         if (this is EnemyHealthController) {
             ((EnemyHealthController)this).Disappear();
+        } else {
+            MusicController musicPlayer = GameObject.FindGameObjectWithTag("MusicPlayer").GetComponent<MusicController>();
+            musicPlayer.PlayMusic(MusicController.MusicTheme.Death);
         }
     }
 }

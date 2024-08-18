@@ -14,6 +14,8 @@ public class MouseMovement : MonoBehaviour
     private float minVertAngle = -80.0f;
     private float maxVertAngle = 80.0f;
     private float vertAngle = 0;
+    private PauseMenu pauseMenu;
+    private Quaternion pausedRotation; // timeScale=0 can cause Input.GetAxis to behave weird
 
     void Start()
     {
@@ -22,9 +24,14 @@ public class MouseMovement : MonoBehaviour
         if (movingTransform == null) {
             movingTransform = transform;
         }
+        pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>();
+
     }
 
     void Update() {
+        if (pauseMenu.paused) {
+            return;
+        }
         if (axis == Axes.X || axis == Axes.BOTH) {
             PlayerCombatController combatController = gameObject.GetComponentInParent<PlayerCombatController>();
             if (!combatController.alive) {
@@ -39,6 +46,10 @@ public class MouseMovement : MonoBehaviour
 
     void LateUpdate()
     {
+        if (pauseMenu.paused) {
+            movingTransform.rotation = pausedRotation;
+            return;
+        }
         if (axis == Axes.Y || axis == Axes.BOTH) {
             PlayerCombatController combatController = gameObject.GetComponentInParent<PlayerCombatController>();
             if (!combatController.alive) {
@@ -49,5 +60,6 @@ public class MouseMovement : MonoBehaviour
             vertAngle = Mathf.Clamp(vertAngle, minVertAngle, maxVertAngle);
             movingTransform.rotation = Quaternion.Euler(-vertAngle, currentRotation.y, currentRotation.z);
         }
+        pausedRotation = movingTransform.rotation;
     }
 }

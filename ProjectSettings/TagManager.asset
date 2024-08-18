@@ -9,6 +9,7 @@ TagManager:
   - RearGate
   - FrontGate
   - MusicPlayer
+  - PauseMenu
   layers:
   - Default
   - TransparentFX
