@@ -52,7 +52,7 @@ public class CombatController : MonoBehaviour
                 maxDistanceVector = 0;
             } else {
                 float newDistance = Vector3.Distance(getCollisionPoint, vertexPoints[i]);
-                if(distance < newDistance){
+                if (distance < newDistance) {
                     distance = newDistance;
                     maxDistanceVector = i;
                 }
