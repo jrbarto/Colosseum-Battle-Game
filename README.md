@@ -14,7 +14,9 @@ git config lfs.url "https://localhost"
 (Note that `lfs-folderstore` needs to be on the system path as explained in the lfs-folderstore project. Replace `/path/to/your/dropbox/folder` with the actual local path to your dropbox shared folder on the file system.)
 
 ### LFS Cleanup
-Since this is using local storage, we have complete control over the files (unlike if we were using an LFS server like Github, who does not allow you to clean up old versions of files). So, I created a script that when run only keeps the latest versions of the stored LFS files. When running out of LFS storage, run the `remove-old-lfs-files.sh` script and it will remove past versions of the stored files and only keep the current versions.
+Since this is using local storage, we have complete control over the files (unlike if we were using an LFS server like Github, who does not allow you to clean up old versions of files). So, I created a script that when run only keeps the latest versions of the stored LFS files. When running out of LFS storage, run the `remove-old-lfs-files.sh` script and it will remove past versions of the stored files and only keep the current versions. 
+
+WARNING: This script is still in testing. I may need to change some things... I had issues after I ran it just doing a git push. Git started showing errors that I was referencing files that do not exist. I had to clone the repo into a new directory to fix it. So, it may have just been some old hidden references in my local file system in the old directory that existed from when I was using GitHub's LFS server. Still testing if that fix is working. 
 
 ## Music Credits
 The music files used in this project are licensed under a Creative Commons license and provided by https://incompetech.com/music/royalty-free/. Individual file credits:
