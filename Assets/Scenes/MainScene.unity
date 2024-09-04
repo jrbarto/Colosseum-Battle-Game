@@ -2072,7 +2072,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: -0.004398498, y: -0.9988328, z: -0.04110917, w: -0.024974354}
-  m_LocalPosition: {x: 0.000120139295, y: 0.0023123892, z: 0.0010695963}
+  m_LocalPosition: {x: 0.00012, y: 0.0016, z: 0.00353}
   m_LocalScale: {x: 0.011515622, y: 0.018530421, z: 0.011515622}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19351,7 +19351,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 3432826723556533978, guid: fc96d48815d722912aea2882fa7b5b12, type: 3}
   m_Bones:
@@ -47253,7 +47253,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: -4690734979309247484, guid: fc96d48815d722912aea2882fa7b5b12, type: 3}
   m_Bones:
