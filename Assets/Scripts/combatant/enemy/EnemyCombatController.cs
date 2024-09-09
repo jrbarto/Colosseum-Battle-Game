@@ -1,15 +1,25 @@
-using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyCombatController : CombatController
 {
-    public float movementSpeed = 5.0f;
     public float turningSpeed = 5.0f;
     public Transform enemyCenter;
     private GameObject player;
+    private NavMeshAgent navAgent;
 
     void Start() {
         player = GameObject.FindGameObjectsWithTag("Player")[0];
+        navAgent = GetComponent<NavMeshAgent>();
+        navAgent.stoppingDistance = weaponAttack.attackRange;
+    }
+
+    // debug function to view stopping distance when enemy is selected in scene mode during play
+    void OnDrawGizmosSelected() {
+        navAgent = GetComponent<NavMeshAgent>();
+        Gizmos.color = Color.red;
+        // draw a wire sphere at the enemy's position with the radius of stoppingDistance
+        Gizmos.DrawWireSphere(transform.position, navAgent.stoppingDistance);
     }
 
     void Update()
@@ -29,14 +39,13 @@ public class EnemyCombatController : CombatController
                 foundObject = getCombatant.combatant;
             }
             PlayerHealthController pController = foundObject.GetComponent<PlayerHealthController>();
-            if (pController != null) {
+            bool attacking = animator.GetBool("attacking");
+            if (pController != null && !attacking) {
                 attack();
             } 
         } else {
             animator.SetBool("walking", true);
             animator.SetBool("attacking", false);
-            Vector3 movement = transform.InverseTransformDirection(transform.forward * movementSpeed * Time.deltaTime);
-            transform.Translate(movement);
         }
 
         float chaseAngle = 5.0f;
@@ -46,8 +55,12 @@ public class EnemyCombatController : CombatController
             Vector3 targetRotation = transform.rotation.eulerAngles;
             targetRotation.y = targetRotation.y - angleToTarget;
             bool attacking = animator.GetBool("attacking");
-            float calcTurnSpeed = attacking ? turningSpeed * 0.7f : turningSpeed;
+            float calcTurnSpeed = attacking ? turningSpeed * 0.1f : turningSpeed;
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(targetRotation), Time.deltaTime * calcTurnSpeed);
+        }
+
+        if (Vector3.Distance(navAgent.destination, player.transform.position) > 0.1f) {
+            navAgent.SetDestination(player.transform.position);
         }
     }
 }

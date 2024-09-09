@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &250353245559341076
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 828804191962001193}
+  m_Layer: 0
+  m_Name: tip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &828804191962001193
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250353245559341076}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.0001, y: 2.3114, z: 0.1295}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8277399927646285102}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &292514953267417754
 GameObject:
   m_ObjectHideFlags: 0
@@ -1819,9 +1850,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5443185718242029738}
   - component: {fileID: 988529798160082478}
-  - component: {fileID: 3931019737274839300}
   - component: {fileID: 1720929408967435753}
   - component: {fileID: 2386637765092902801}
+  - component: {fileID: 185695093010848706}
+  - component: {fileID: 6137770590392191666}
+  - component: {fileID: 1395372638345934954}
   m_Layer: 0
   m_Name: Enemy Katana Swordsman
   m_TagString: Untagged
@@ -1872,25 +1905,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3931019737274839300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4593530946176607803}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc517cc0896eb42bbaa5c050d9134519, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackingArm: {fileID: 3388884276037544987}
-  weapon: {fileID: 0}
-  weaponAttack: {fileID: 0}
-  alive: 1
-  movementSpeed: 4
-  turningSpeed: 5
-  enemyCenter: {fileID: 914342487728810733}
 --- !u!114 &1720929408967435753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1927,6 +1941,62 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 2.07, z: 0.86}
   m_Center: {x: 0, y: 3, z: -0.02}
+--- !u!114 &185695093010848706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4593530946176607803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8706f691083c2ea16ad8b7aeab2fb33b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackingArm: {fileID: 3388884276037544987}
+  weapon: {fileID: 0}
+  weaponAttack: {fileID: 0}
+  alive: 1
+  turningSpeed: 3
+  enemyCenter: {fileID: 914342487728810733}
+--- !u!114 &6137770590392191666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4593530946176607803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51f3861cc5499d189af4ed742998c81b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponAttack: {fileID: 333378888035274629}
+  weaponTip: {fileID: 250353245559341076}
+  attackClip: {fileID: -8970281547773981250, guid: fc96d48815d722912aea2882fa7b5b12, type: 3}
+  centerBone: {fileID: 547906288172502183}
+--- !u!195 &1395372638345934954
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4593530946176607803}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.7
+  m_Speed: 4
+  m_Acceleration: 50
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 4.68
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 1
 --- !u!1 &4702715233879663561
 GameObject:
   m_ObjectHideFlags: 0
@@ -2677,6 +2747,7 @@ Transform:
   - {fileID: 3605856296959263097}
   - {fileID: 4470055174247673232}
   - {fileID: 8982440158448979528}
+  - {fileID: 828804191962001193}
   m_Father: {fileID: 6969460621088231794}
   m_LocalEulerAnglesHint: {x: 92.315, y: -211.59601, z: -27.523987}
 --- !u!54 &7495712934298283112

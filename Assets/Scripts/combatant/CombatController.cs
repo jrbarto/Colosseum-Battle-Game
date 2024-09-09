@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,47 +20,6 @@ public class CombatController : MonoBehaviour
         weaponAttack = gameObject.GetComponentInChildren<WeaponAttack>();
         animator = gameObject.GetComponent<Animator>();
         animator.SetBool("twoHandedWeapon", weaponAttack.twoHanded);
-        weaponAttack.attackRange = calcAttackRange();
-    }
-
-    private float calcAttackRange () {
-        List<Vector3> vertexPoints = new List<Vector3>();
-        Collider weaponCollider = weapon.GetComponent<Collider>();
-        weaponCollider.enabled = true;
-        Collider armCollider = attackingArm.GetComponent<Collider>();
-        Vector3 armPoint = armCollider.ClosestPointOnBounds(weaponCollider.transform.position);
- 
-        vertexPoints.Add (weaponCollider.bounds.max);
-        vertexPoints.Add (weaponCollider.bounds.min);
-        //vertexPoints.Add (new Vector3 (weaponCollider.bounds.max.x, weaponCollider.bounds.max.y, weaponCollider.bounds.max.z)); 
-        vertexPoints.Add (new Vector3 (weaponCollider.bounds.max.x, weaponCollider.bounds.max.y, weaponCollider.bounds.min.z));    
-        vertexPoints.Add (new Vector3 (weaponCollider.bounds.max.x, weaponCollider.bounds.min.y, weaponCollider.bounds.min.z));      
-        vertexPoints.Add (new Vector3 (weaponCollider.bounds.max.x, weaponCollider.bounds.min.y, weaponCollider.bounds.max.z));    
-        vertexPoints.Add (new Vector3 (weaponCollider.bounds.min.x, weaponCollider.bounds.min.y, weaponCollider.bounds.max.z));    
-        vertexPoints.Add (new Vector3 (weaponCollider.bounds.min.x, weaponCollider.bounds.max.y, weaponCollider.bounds.max.z));
-        vertexPoints.Add (new Vector3 (weaponCollider.bounds.min.x, weaponCollider.bounds.max.y, weaponCollider.bounds.min.z));
-        //vertexPoints.Add (new Vector3 (weaponCollider.bounds.min.x, weaponCollider.bounds.min.y, weaponCollider.bounds.min.z)); 
- 
-        int maxDistanceVector = 0;
-        float distance = 0;
-        Vector3 getCollisionPoint = weaponCollider.ClosestPointOnBounds(armPoint);
- 
-        for (int i = 0; i < vertexPoints.Count; i++){
-            if (i == 0) {
-                distance = Vector3.Distance(getCollisionPoint, vertexPoints[i]);
-                maxDistanceVector = 0;
-            } else {
-                float newDistance = Vector3.Distance(getCollisionPoint, vertexPoints[i]);
-                if (distance < newDistance) {
-                    distance = newDistance;
-                    maxDistanceVector = i;
-                }
-            }
- 
-        }
- 
-        weaponCollider.enabled = false;
-        return Vector3.Distance(vertexPoints[maxDistanceVector], armPoint);
     }
 
     public bool isAttacking() {

@@ -354,9 +354,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8905125273462860451}
   - component: {fileID: 4386781189315674908}
-  - component: {fileID: 3576135289896752892}
   - component: {fileID: 7783046029893066655}
   - component: {fileID: 917675473298961574}
+  - component: {fileID: 1239092018859913940}
+  - component: {fileID: 8142128727584195702}
+  - component: {fileID: 89195277085996969}
   m_Layer: 0
   m_Name: Enemy Claymore Swordsman
   m_TagString: Untagged
@@ -407,25 +409,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3576135289896752892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 437127692590734395}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc517cc0896eb42bbaa5c050d9134519, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackingArm: {fileID: 5424390756373215758}
-  weapon: {fileID: 0}
-  weaponAttack: {fileID: 0}
-  alive: 1
-  movementSpeed: 4
-  turningSpeed: 5
-  enemyCenter: {fileID: 2953764363380272709}
 --- !u!114 &7783046029893066655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -462,6 +445,62 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 2.07, z: 0.86}
   m_Center: {x: 0, y: 3, z: -0.02}
+--- !u!114 &1239092018859913940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437127692590734395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8706f691083c2ea16ad8b7aeab2fb33b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackingArm: {fileID: 5424390756373215758}
+  weapon: {fileID: 0}
+  weaponAttack: {fileID: 0}
+  alive: 1
+  turningSpeed: 3
+  enemyCenter: {fileID: 2953764363380272709}
+--- !u!195 &8142128727584195702
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437127692590734395}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 4
+  m_Acceleration: 50
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 1
+--- !u!114 &89195277085996969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437127692590734395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51f3861cc5499d189af4ed742998c81b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponAttack: {fileID: 2312663894217429107}
+  weaponTip: {fileID: 2166534785840508794}
+  attackClip: {fileID: -8970281547773981250, guid: fc96d48815d722912aea2882fa7b5b12, type: 3}
+  centerBone: {fileID: 8361580326450744947}
 --- !u!1 &443073419278196782
 GameObject:
   m_ObjectHideFlags: 0
@@ -1699,6 +1738,37 @@ Transform:
   - {fileID: 672658359505224668}
   - {fileID: 6036212742336290536}
   m_Father: {fileID: 7204229879699976122}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2166534785840508794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 14482296304281106}
+  m_Layer: 0
+  m_Name: tip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &14482296304281106
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2166534785840508794}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0031, y: 14.463, z: -0.0027}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 32070968526339171}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2313292312839331842
 GameObject:
@@ -4203,6 +4273,7 @@ Transform:
   - {fileID: 2295094670537328852}
   - {fileID: 6727308412283449164}
   - {fileID: 3518487040366735280}
+  - {fileID: 14482296304281106}
   m_Father: {fileID: 3102733273781706606}
   m_LocalEulerAnglesHint: {x: -10.482, y: 81.254, z: -85.377}
 --- !u!54 &7681383652101369808
