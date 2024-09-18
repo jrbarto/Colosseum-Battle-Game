@@ -161,7 +161,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.7
-  m_Speed: 4
+  m_Speed: 6
   m_Acceleration: 50
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -187,7 +187,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponAttack: {fileID: 478005403595130983}
   weaponTip: {fileID: 5105262042135165646}
-  animator: {fileID: 3668465069940836410}
   attackClip: {fileID: -8856531900239171554, guid: c555f83ede01279bc94e4a29eb8a35ef, type: 3}
   centerBone: {fileID: 8625967318589475335}
 --- !u!1 &404680072971649577
