@@ -53,6 +53,7 @@ public class MouseMovement : MonoBehaviour
         if (axis == Axes.Y || axis == Axes.BOTH) {
             PlayerCombatController combatController = gameObject.GetComponentInParent<PlayerCombatController>();
             if (!combatController.alive) {
+                pausedRotation = movingTransform.rotation;
                 return;
             }
             Vector3 currentRotation = movingTransform.eulerAngles;

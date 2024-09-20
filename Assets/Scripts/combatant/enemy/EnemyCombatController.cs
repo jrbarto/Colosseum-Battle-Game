@@ -49,17 +49,14 @@ public class EnemyCombatController : CombatController
             animator.SetBool("attacking", false);
         }
 
-        // TODO: fix this to have a running animation that plays when movespeed is high
-        // TODO: also cap the animation speed so it doesn't look so dumb
         float moveSpeed = navAgent.velocity.magnitude / 3;
-        Debug.Log("SETTING MOVE SPEED WITH " + Mathf.Clamp(moveSpeed, 0, 2.0f));
         animator.SetFloat("moveSpeed", Mathf.Clamp(moveSpeed, 1.0f, 2.0f));
 
         float targetSpeed = navAgent.desiredVelocity.magnitude;
 
-        // Smoothly adjust the agent's speed
+        // smoothly adjust the agent's speed
         if (currentSpeed < targetSpeed) {
-            // Accelerate up to target speed
+            // accelerate up to target speed
             currentSpeed += 2.0f * Time.deltaTime;
             currentSpeed = Mathf.Min(currentSpeed, targetSpeed); // cap the speed at target
         } else if (currentSpeed > targetSpeed) {

@@ -14,7 +14,6 @@ public class PauseMenu : MonoBehaviour
         musicPlayer = GameObject.FindGameObjectWithTag("MusicPlayer").GetComponent<MusicController>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)) {
