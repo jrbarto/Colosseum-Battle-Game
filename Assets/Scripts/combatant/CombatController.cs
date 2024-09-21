@@ -9,7 +9,7 @@ public class CombatController : MonoBehaviour
 {
     public GameObject attackingArm;
     public GameObject weapon;
-    public WeaponAttack weaponAttack;
+    protected WeaponAttack weaponAttack;
     public bool alive = true;
     protected Animator animator;
     private Collider weaponCollider;

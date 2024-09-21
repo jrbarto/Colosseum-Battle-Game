@@ -3229,8 +3229,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabs:
-  - {fileID: 1775861205365992007, guid: e70d363b8ab6ade3ea85efdec2c6e31d, type: 3}
   - {fileID: 4933521732399919825, guid: 4c5c517b11e5e8b1aa343726cee5a8e4, type: 3}
+  - {fileID: 1775861205365992007, guid: e70d363b8ab6ade3ea85efdec2c6e31d, type: 3}
   - {fileID: 4501884149234067706, guid: 238e456dea224f2d98daa9625415d338, type: 3}
   respawnSeconds: 30
 --- !u!1 &1239765686
@@ -21794,7 +21794,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackingArm: {fileID: 3394188141157438659}
   weapon: {fileID: 256817871}
-  weaponAttack: {fileID: 0}
   alive: 1
 --- !u!114 &1948433089237348964
 MonoBehaviour:
@@ -34687,6 +34686,63 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1001 &3554183877735405486
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1244917008146963277, guid: 72891333abc4ad58eafc87d37346a999, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244917008146963277, guid: 72891333abc4ad58eafc87d37346a999, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.634
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244917008146963277, guid: 72891333abc4ad58eafc87d37346a999, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244917008146963277, guid: 72891333abc4ad58eafc87d37346a999, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.8342229
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244917008146963277, guid: 72891333abc4ad58eafc87d37346a999, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244917008146963277, guid: 72891333abc4ad58eafc87d37346a999, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244917008146963277, guid: 72891333abc4ad58eafc87d37346a999, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.5514275
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244917008146963277, guid: 72891333abc4ad58eafc87d37346a999, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244917008146963277, guid: 72891333abc4ad58eafc87d37346a999, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244917008146963277, guid: 72891333abc4ad58eafc87d37346a999, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 66.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 8031088379825859877, guid: 72891333abc4ad58eafc87d37346a999, type: 3}
+      propertyPath: m_Name
+      value: claymore-sword
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 72891333abc4ad58eafc87d37346a999, type: 3}
 --- !u!1 &3559817854613369260
 GameObject:
   m_ObjectHideFlags: 0
@@ -82999,3 +83055,4 @@ SceneRoots:
   - {fileID: 1171473834116360420}
   - {fileID: 567431775}
   - {fileID: 1294050414}
+  - {fileID: 3554183877735405486}

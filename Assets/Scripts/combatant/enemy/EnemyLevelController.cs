@@ -2,19 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttackRange : MonoBehaviour
+public class EnemyLevelController : MonoBehaviour
 {
-    public WeaponAttack weaponAttack;
-    public GameObject weaponTip;
+    public GameObject weapon;
     public AnimationClip attackClip;
-    public GameObject centerBone;
+    public Transform centerBone;
+    private Transform weaponTip;
     private Animator animator;
 
     void Start()
     {
+        weaponTip = Utils.FindChildByName(weapon.transform, "weapon-tip").transform;
         animator = GetComponent<Animator>();
         float attackRange = calcAttackRange();
-        weaponAttack.attackRange = attackRange;
+        weapon.GetComponent<WeaponAttack>().attackRange = attackRange;
     }
 
     private float calcAttackRange() {
@@ -27,8 +28,8 @@ public class EnemyAttackRange : MonoBehaviour
             attackClip.SampleAnimation(gameObject, time);  // sample the animation at the current time
 
             // calculate distance from center of enemy (center bone) to the tip of the weapon mid animation swing
-            Vector3 originPoint = centerBone.transform.position;
-            float distance = Vector3.Distance(originPoint, weaponTip.transform.position);
+            Vector3 originPoint = centerBone.position;
+            float distance = Vector3.Distance(originPoint, weaponTip.position);
             if (distance > maxDistance) {
                 maxDistance = distance;
             }
