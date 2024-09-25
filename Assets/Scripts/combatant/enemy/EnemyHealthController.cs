@@ -7,7 +7,6 @@ public class EnemyHealthController : HealthController
     private EnemySpawner enemySpawner;
 
     void Start() {
-        gameObject.tag = "Enemy";
         healthText.text = $"{healthPoints}/{maxHealthPoints}";
         enemySpawner = GameObject.FindGameObjectsWithTag("EnemySpawner")[0].GetComponent<EnemySpawner>();
     }

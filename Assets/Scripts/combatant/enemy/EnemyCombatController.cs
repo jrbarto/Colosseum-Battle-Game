@@ -4,6 +4,7 @@ using UnityEngine.AI;
 public class EnemyCombatController : CombatController
 {
     public float turningSpeed = 5.0f;
+    public float acceleration = 2.0f;
     public Transform enemyCenter;
     private GameObject player;
     private NavMeshAgent navAgent;
@@ -33,7 +34,7 @@ public class EnemyCombatController : CombatController
 
         RaycastHit hit;
         Ray ray = new Ray(enemyCenter.position, transform.forward);
-        if (Physics.SphereCast(ray, attackingArm.transform.localScale.x, out hit, weaponAttack.attackRange)) {
+        if (Physics.SphereCast(ray, 1, out hit, weaponAttack.attackRange)) {
             GameObject foundObject = hit.transform.gameObject;
             GetCombatant getCombatant = foundObject.GetComponent<GetCombatant>();
             if (getCombatant != null) {
@@ -57,7 +58,7 @@ public class EnemyCombatController : CombatController
         // smoothly adjust the agent's speed
         if (currentSpeed < targetSpeed) {
             // accelerate up to target speed
-            currentSpeed += 2.0f * Time.deltaTime;
+            currentSpeed += acceleration * Time.deltaTime;
             currentSpeed = Mathf.Min(currentSpeed, targetSpeed); // cap the speed at target
         } else if (currentSpeed > targetSpeed) {
             // decelerate to target speed immediately (otherwise he slides past the player)
@@ -66,14 +67,14 @@ public class EnemyCombatController : CombatController
 
         navAgent.velocity = navAgent.desiredVelocity.normalized * currentSpeed;
 
-        float chaseAngle = 5.0f;
+        float chaseAngle = 1.0f;
         Vector3 targetDir = (player.transform.position - transform.position).normalized;
         float angleToTarget = Vector3.SignedAngle(targetDir, transform.forward, Vector3.up);
         if (Mathf.Abs(angleToTarget) > chaseAngle) {
             Vector3 targetRotation = transform.rotation.eulerAngles;
             targetRotation.y = targetRotation.y - angleToTarget;
             bool attacking = animator.GetBool("attacking");
-            float calcTurnSpeed = attacking ? turningSpeed * 0.1f : turningSpeed;
+            float calcTurnSpeed = attacking ? turningSpeed * 0.5f : turningSpeed;
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(targetRotation), Time.deltaTime * calcTurnSpeed);
         }
 

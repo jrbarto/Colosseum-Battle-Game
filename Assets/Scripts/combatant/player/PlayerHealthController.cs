@@ -10,10 +10,6 @@ public class PlayerHealthController : HealthController
     private float maxHealthBarLength;
     private float maxHealthBarPoints = 20.0f;
 
-    void Awake() {
-        gameObject.tag = "Player";
-    }
-
     void Start() {
         GameObject healthBarObject = uiCanvas.transform.Find("Health Bar").gameObject;
         healthBar = healthBarObject.transform.GetComponent<RectTransform>();

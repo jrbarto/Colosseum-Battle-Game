@@ -6,15 +6,21 @@ using UnityEngine;
 */
 public class HealthController : MonoBehaviour
 {
-    public int healthPoints;
     public int maxHealthPoints;
+    protected int healthPoints;
     private float damageBufferTimer = 0.5f;
     private float lastHitTime;
 
 
     void Awake() {
+        if (this is EnemyHealthController) {
+            gameObject.tag = "Enemy";
+        } else {
+            gameObject.tag = "Player";
+        }
         healthPoints = maxHealthPoints;
     }
+
     public void TakeDamage(int damage) {
         if (Time.time - lastHitTime >= damageBufferTimer && healthPoints > 0) {
             healthPoints -= damage;
@@ -26,6 +32,17 @@ public class HealthController : MonoBehaviour
         }
         if (combatController != null && combatController.alive && healthPoints <= 0) {
             Die();
+        }
+    }
+
+    public void HealDamage(float healPercent) {
+        this.healthPoints = (int)Mathf.Clamp(
+            maxHealthPoints * healPercent,
+            0,
+            maxHealthPoints
+        );
+        if (this is EnemyHealthController) {
+            ((EnemyHealthController)this).healthText.text = $"{healthPoints}/{maxHealthPoints}";
         }
     }
 

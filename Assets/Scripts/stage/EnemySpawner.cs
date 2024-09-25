@@ -8,7 +8,8 @@ public class EnemySpawner : MonoBehaviour
     GameObject rearGate;
     MusicController musicPlayer;
     public int respawnSeconds = 30;
-    private int level;
+    public int level;
+    private int enemyCount;
     private int? timer;
 
     void Awake() {
@@ -17,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
-        level = 0;
+        enemyCount = 0;
         rearGate = GameObject.FindGameObjectWithTag("RearGate");
         musicPlayer = GameObject.FindGameObjectWithTag("MusicPlayer").GetComponent<MusicController>();
     }
@@ -46,11 +47,15 @@ public class EnemySpawner : MonoBehaviour
     {
         if (enemy == null) {
             rearGate.GetComponent<GateControl>().SetGateDirection(1);
-            enemy = Instantiate(enemyPrefabs[level % enemyPrefabs.Length]);
+            enemy = Instantiate(enemyPrefabs[enemyCount % enemyPrefabs.Length]);
             StartCoroutine(WaitToActivateEnemy(enemy.GetComponentInChildren<EnemyCombatController>()));
             enemy.transform.position = new Vector3(transform.position.x, enemy.transform.position.y, transform.position.z);
             enemy.transform.rotation = transform.rotation;
-            level += 1;
+            enemy.GetComponentInChildren<EnemyLevelController>().level = this.level;
+            enemyCount += 1;
+            if (enemyCount % 3 == 0) {
+                this.level += 1;
+            }
         }
     }
 
