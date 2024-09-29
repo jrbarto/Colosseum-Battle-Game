@@ -27,8 +27,7 @@ public class EnemyCombatController : CombatController
     void Update()
     {
         if (!alive || !player.GetComponent<PlayerCombatController>().alive) {
-            animator.SetBool("walking", false);
-            animator.SetBool("attacking", false);
+            this.animStateMachine.SetState(animStateMachine.deathState);
             return;
         }
 
@@ -41,13 +40,11 @@ public class EnemyCombatController : CombatController
                 foundObject = getCombatant.combatant;
             }
             PlayerHealthController pController = foundObject.GetComponent<PlayerHealthController>();
-            bool attacking = animator.GetBool("attacking");
-            if (pController != null && !attacking) {
+            if (pController != null && !this.isAttacking()) {
                 attack();
             } 
         } else {
-            animator.SetBool("walking", true);
-            animator.SetBool("attacking", false);
+            this.animStateMachine.SetState(animStateMachine.moveState);
         }
 
         float moveSpeed = navAgent.velocity.magnitude / 3;
@@ -73,8 +70,7 @@ public class EnemyCombatController : CombatController
         if (Mathf.Abs(angleToTarget) > chaseAngle) {
             Vector3 targetRotation = transform.rotation.eulerAngles;
             targetRotation.y = targetRotation.y - angleToTarget;
-            bool attacking = animator.GetBool("attacking");
-            float calcTurnSpeed = attacking ? turningSpeed * 0.5f : turningSpeed;
+            float calcTurnSpeed = this.isAttacking() ? turningSpeed * 0.5f : turningSpeed;
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(targetRotation), Time.deltaTime * calcTurnSpeed);
         }
 

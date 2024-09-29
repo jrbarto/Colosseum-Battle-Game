@@ -48,7 +48,7 @@ public class EnemyStats : MonoBehaviour
             }
         }
         for (int i = 0; i < level && underMaxProps.Count > 0; i++) {
-            int random = Random.Range(0, underMaxProps.Count - 1);
+            int random = Random.Range(0, underMaxProps.Count);
             PropertyInfo prop = underMaxProps[random];
             int currentValue = (int)prop.GetValue(this);
             prop.SetValue(this, currentValue + 1);

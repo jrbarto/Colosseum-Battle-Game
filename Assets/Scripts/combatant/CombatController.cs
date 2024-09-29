@@ -11,13 +11,15 @@ public class CombatController : MonoBehaviour
     public bool alive = true;
     protected WeaponAttack weaponAttack;
     protected Animator animator;
+    protected AnimStateMachine animStateMachine;
     private Collider weaponCollider;
 
     void Awake () {
         weaponCollider = weapon.transform.GetComponent<Collider>();
         weaponAttack = gameObject.GetComponentInChildren<WeaponAttack>();
-        animator = gameObject.GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         animator.SetBool("twoHandedWeapon", weaponAttack.twoHanded);
+        animStateMachine = GetComponent<AnimStateMachine>();
     }
 
     public bool isAttacking() {
@@ -35,8 +37,7 @@ public class CombatController : MonoBehaviour
 
     protected void attack() {
         if (this is EnemyCombatController) {
-            animator.SetBool("walking", false);
-            animator.SetBool("attacking", true);
+            animStateMachine.SetState(animStateMachine.attackState);
         } else {
             if (weaponAttack.twoHanded) {
                 animator.CrossFade("Base Layer.Twohand Attacking", 0.1f);
