@@ -30,6 +30,7 @@ public class EnemyLevelController : MonoBehaviour
         this.level = level;
         stats.randomizeStats(level);
         this.configureWeaponLength(stats.weaponLength);
+        this.configureWeaponStats(stats.damage, stats.attackSpeed);
         this.configureMovement(stats.turningSpeed, stats.acceleration, stats.maxSpeed);
         this.configureHealth(stats.maxHealthPoints);
     }
@@ -42,6 +43,12 @@ public class EnemyLevelController : MonoBehaviour
             newYScale,
             weaponOrigin.localScale.z
         );
+    }
+
+    private void configureWeaponStats(int damage, int speed) {
+        WeaponAttack weaponAttack = weapon.GetComponent<WeaponAttack>();
+        weaponAttack.damage += damage;
+        weaponAttack.attackSpeed += speed;
     }
 
     private void configureMovement(int turningSpeed, int acceleration, int maxSpeed) {

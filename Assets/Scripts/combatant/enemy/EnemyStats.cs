@@ -10,6 +10,7 @@ public class EnemyStats : MonoBehaviour
     public int acceleration { get; set; }
     public int maxSpeed { get; set; }
     public int damage { get; set; }
+    public int attackSpeed { get; set; }
     public int weaponLength { get; set; }
     public int maxHealthPoints { get; set; }
     public int stamina { get; set; }
@@ -18,6 +19,7 @@ public class EnemyStats : MonoBehaviour
         {"acceleration", 20},
         {"maxSpeed", 20},
         {"damage", 20},
+        {"attackSpeed", 20},
         {"weaponLength", 10},
         {"maxHealthPoints", 20},
         {"stamina", 20}
@@ -29,25 +31,17 @@ public class EnemyStats : MonoBehaviour
         this.acceleration = 0;
         this.maxSpeed = 0;
         this.damage = 0;
+        this.attackSpeed = 0;
         this.weaponLength = 0;
         this.maxHealthPoints = 0;
         this.stamina = 0;
     }
 
     public void randomizeStats(int level) {
-        string[] propNames = {
-            "turningSpeed",
-            "acceleration",
-            "maxSpeed",
-            "damage",
-            "weaponLength",
-            "maxHealthPoints",
-            "stamina"
-        };
         List<PropertyInfo> underMaxProps = new List<PropertyInfo>();
 
-        foreach (string propName in propNames) {
-            int maxValue = maxValues[propName];
+        foreach (string propName in this.maxValues.Keys) {
+            int maxValue = this.maxValues[propName];
             PropertyInfo prop = typeof(EnemyStats).GetProperty(propName);
             if ((int)prop.GetValue(this) < maxValue) {
                 underMaxProps.Add(prop);
@@ -67,6 +61,7 @@ public class EnemyStats : MonoBehaviour
             " acceleration: " + acceleration +
             " maxSpeed: " + maxSpeed +
             " damage: " + damage + 
+            " attackSpeed: " + attackSpeed +
             " weaponLength: " + weaponLength +
             " maxHealthPoints: " + maxHealthPoints +
             " stamina: " + stamina
