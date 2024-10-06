@@ -1938,8 +1938,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 2934623439487363101}
-  attackClip: {fileID: -8970281547773981250, guid: fc96d48815d722912aea2882fa7b5b12, type: 3}
+  attackClip: {fileID: -6634207510015238841, guid: c555f83ede01279bc94e4a29eb8a35ef, type: 3}
   centerBone: {fileID: 4440801627847548659}
+  level: 0
 --- !u!195 &1395372638345934954
 NavMeshAgent:
   m_ObjectHideFlags: 0

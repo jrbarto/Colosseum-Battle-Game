@@ -24,6 +24,28 @@ public class EnemyCombatController : CombatController
     //     Gizmos.DrawWireSphere(transform.position, navAgent.stoppingDistance);
     // }
 
+    // debug function to view spherecast when looking for player
+    // void OnDrawGizmos()
+    // {
+    //     // Origin of the SphereCast
+    //     Vector3 origin = enemyCenter.position;
+
+    //     // Calculate the end point of the SphereCast
+    //     Vector3 endPoint = origin + transform.forward * (weaponAttack.attackRange - 1);
+
+    //     // Draw the initial sphere at the origin
+    //     Gizmos.color = Color.red;
+    //     Gizmos.DrawWireSphere(origin, 1);
+
+    //     // Draw a line representing the cast direction
+    //     Gizmos.color = Color.yellow;
+    //     Gizmos.DrawLine(origin, endPoint);
+
+    //     // Draw the sphere at the end point of the SphereCast
+    //     Gizmos.color = Color.green;
+    //     Gizmos.DrawWireSphere(endPoint, 1);
+    // }
+
     void Update()
     {
         if (!alive || !player.GetComponent<PlayerCombatController>().alive) {
@@ -34,7 +56,7 @@ public class EnemyCombatController : CombatController
 
         RaycastHit hit;
         Ray ray = new Ray(enemyCenter.position, transform.forward);
-        if (Physics.SphereCast(ray, 1, out hit, weaponAttack.attackRange)) {
+        if (Physics.SphereCast(ray, 1, out hit, weaponAttack.attackRange - 1)) {
             GameObject foundObject = hit.transform.gameObject;
             GetCombatant getCombatant = foundObject.GetComponent<GetCombatant>();
             if (getCombatant != null) {
@@ -50,8 +72,12 @@ public class EnemyCombatController : CombatController
             animator.SetBool("attacking", false);
         }
 
-        float moveSpeed = navAgent.velocity.magnitude / 3;
-        animator.SetFloat("moveSpeed", Mathf.Clamp(moveSpeed, 1.0f, 2.0f));
+        // lowering movement speed when enemy transitions from move to attack caused 
+        // them to go back to walking (from running) for a frame before attack
+        if (animator.GetBool("walking")) {
+            float moveSpeed = navAgent.velocity.magnitude / 3;
+            animator.SetFloat("moveSpeed", Mathf.Clamp(moveSpeed, 1.0f, 2.0f));
+        }
 
         float targetSpeed = navAgent.desiredVelocity.magnitude;
 

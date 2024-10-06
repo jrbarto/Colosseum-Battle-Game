@@ -1,5 +1,7 @@
 using UnityEngine;
 
+// necessary so that resizing weapon on level up also resizes the collider
+// unsure yet if I need this in Update or if I should just call a function on level up
 public class DynamicWeaponCollider : MonoBehaviour
 {
     public GameObject topMarker;
