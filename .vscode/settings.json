@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Colosseum-Fighting-Game.sln"
+    "dotnet.defaultSolution": "Colosseum-Fighting-Game.slnx"
 }

@@ -28,7 +28,7 @@ public class WeaponAttack : MonoBehaviour
             previousRootPosition = rootPosition;
             yVelocity = velocity.y - rootVelocity.y;
             Collider weaponCollider = GetComponent<Collider>();
-            if (yVelocity < -1 && combatController.isAttacking()) {
+            if (yVelocity < -1 && combatController.isAttacking(false)) {
                 weaponCollider.enabled = true;
             } else {
                 weaponCollider.enabled = false;
@@ -37,6 +37,9 @@ public class WeaponAttack : MonoBehaviour
     }
     
     void OnTriggerEnter(Collider other) {
+        if (gameObject.GetComponentInParent<CombatController>() == null) {
+            return;
+        }
         GameObject foundObject = other.gameObject;
         GetCombatant getCombatant = foundObject.GetComponent<GetCombatant>();
         if (getCombatant != null) {

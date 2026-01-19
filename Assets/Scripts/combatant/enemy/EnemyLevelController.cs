@@ -17,10 +17,10 @@ public class EnemyLevelController : MonoBehaviour
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         stats = new EnemyStats();
         this.setLevel(level); //remove when i move this to enemyspawner
         weaponTip = Utils.FindChildByName(weapon.transform, "weapon-tip").transform;
-        animator = GetComponent<Animator>();
         float attackRange = calcAttackRange();
         weapon.GetComponent<WeaponAttack>().attackRange = attackRange;
         
@@ -28,7 +28,7 @@ public class EnemyLevelController : MonoBehaviour
 
     public void setLevel(int level) {
         this.level = level;
-        stats.randomizeStats(level);
+        stats.randomizeStats(level * 10);
         this.configureWeaponLength(stats.weaponLength);
         this.configureWeaponStats(stats.damage, stats.attackSpeed);
         this.configureMovement(stats.turningSpeed, stats.acceleration, stats.maxSpeed);
@@ -48,7 +48,8 @@ public class EnemyLevelController : MonoBehaviour
     private void configureWeaponStats(int damage, int speed) {
         WeaponAttack weaponAttack = weapon.GetComponent<WeaponAttack>();
         weaponAttack.damage += damage;
-        weaponAttack.attackSpeed += speed;
+        weaponAttack.attackSpeed += (speed * 0.1f);
+        animator.SetFloat("attackSpeed", weaponAttack.attackSpeed);
     }
 
     private void configureMovement(int turningSpeed, int acceleration, int maxSpeed) {

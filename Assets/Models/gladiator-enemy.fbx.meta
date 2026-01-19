@@ -37,8 +37,63 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Sisal Rope.001
+    second: {fileID: 2100000, guid: 886cc5d58e407408e95c27b2f5d7ed3f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Stylized Medieval Chain
     second: {fileID: 2100000, guid: be6e91af78e1ce46d84fa00d59651f27, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Medieval_chain_Octagon_Opacity
+    second: {fileID: 2800000, guid: 02e05b640aee84a52bf1977401b83c74, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Medieval_chain_Octagon_Specular
+    second: {fileID: 2800000, guid: 6c949e9a5bf89c4b19494cb32b304006, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Sisal_Rope_Base_Color
+    second: {fileID: 2800000, guid: 8a72b6bb42d66ae3a8be9026c02a3df6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Sisal_Rope_Roughness
+    second: {fileID: 2800000, guid: 93e976d8cfd05a08991ffddace5eeef5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: SkinImage
+    second: {fileID: 2800000, guid: e7e29cee6b41ba643867aa41f30334c3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: leather-diffuse
+    second: {fileID: 2800000, guid: 39fa9bce7f9fdfad19572a2bbdd0f15a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: leather2-normal
+    second: {fileID: 2800000, guid: cdbebf485f88cf1b6a96750122fcb7d4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: leather2-roughness
+    second: {fileID: 2800000, guid: a5865861f51fb634d8ebed8ebae7f4b7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: plane_divided_DefaultMaterial_Normal
+    second: {fileID: 2800000, guid: d01d04387f25c0b7b93217464f5a8242, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: plane_divided_DefaultMaterial_Roughness
+    second: {fileID: 2800000, guid: 5c0d561a4f5b7e8b8823165551a37043, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -51,8 +106,6 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 

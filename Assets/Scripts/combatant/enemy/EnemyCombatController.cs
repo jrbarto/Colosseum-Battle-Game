@@ -63,10 +63,10 @@ public class EnemyCombatController : CombatController
                 foundObject = getCombatant.combatant;
             }
             PlayerHealthController pController = foundObject.GetComponent<PlayerHealthController>();
-            bool attacking = animator.GetBool("attacking");
-            if (pController != null && !attacking) {
+            this.ChooseMeleeAttack();
+            if (pController != null && !this.isAttacking(true)) {
                 attack();
-            } 
+            }
         } else {
             animator.SetBool("walking", true);
             animator.SetBool("attacking", false);
@@ -75,7 +75,7 @@ public class EnemyCombatController : CombatController
         // lowering movement speed when enemy transitions from move to attack caused 
         // them to go back to walking (from running) for a frame before attack
         if (animator.GetBool("walking")) {
-            float moveSpeed = navAgent.velocity.magnitude / 3;
+            float moveSpeed = navAgent.velocity.magnitude / 4;
             animator.SetFloat("moveSpeed", Mathf.Clamp(moveSpeed, 1.0f, 2.0f));
         }
 
@@ -106,6 +106,13 @@ public class EnemyCombatController : CombatController
 
         if (Vector3.Distance(navAgent.destination, player.transform.position) > 0.1f) {
             navAgent.SetDestination(player.transform.position);
+        }
+    }
+
+    private void ChooseMeleeAttack() {
+        if (!this.isAttacking(true)) {
+            int attackIndex = Random.Range(0, 2);
+            animator.SetFloat("meleeAttackIndex", attackIndex);
         }
     }
 }

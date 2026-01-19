@@ -20,9 +20,12 @@ public class CombatController : MonoBehaviour
         animator.SetBool("twoHandedWeapon", weaponAttack.twoHanded);
     }
 
-    public bool isAttacking() {
+    public bool isAttacking(bool includeTransition) {
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-        return stateInfo.IsTag("attacking");
+        if (includeTransition && animator.IsInTransition(0)) {
+            stateInfo = animator.GetNextAnimatorStateInfo(0);
+        }
+        return stateInfo.IsTag("attacking") && stateInfo.normalizedTime < 0.98f;
     }
 
     public void dropWeapon() {
@@ -31,6 +34,10 @@ public class CombatController : MonoBehaviour
         weaponCollider.enabled = true;
         weaponCollider.isTrigger = false;
         weapon.transform.GetComponent<Rigidbody>().useGravity = true;
+        GlowObject weaponGlow = weapon.GetComponent<GlowObject>();
+        if (weaponGlow) {
+            weaponGlow.ToggleGlowHierarchy(true);
+        }
     }
 
     protected void attack() {

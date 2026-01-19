@@ -16,10 +16,10 @@ public class EnemyStats : MonoBehaviour
     public int stamina { get; set; }
     private Dictionary<string, int> maxValues = new Dictionary<string, int> {
         {"turningSpeed", 20},
-        {"acceleration", 20},
+        {"acceleration", 50},
         {"maxSpeed", 20},
         {"damage", 20},
-        {"attackSpeed", 20},
+        {"attackSpeed", 10},
         {"weaponLength", 10},
         {"maxHealthPoints", 20},
         {"stamina", 20}
@@ -37,7 +37,7 @@ public class EnemyStats : MonoBehaviour
         this.stamina = 0;
     }
 
-    public void randomizeStats(int level) {
+    public void randomizeStats(int statPoints) {
         List<PropertyInfo> underMaxProps = new List<PropertyInfo>();
 
         foreach (string propName in this.maxValues.Keys) {
@@ -47,7 +47,7 @@ public class EnemyStats : MonoBehaviour
                 underMaxProps.Add(prop);
             }
         }
-        for (int i = 0; i < level && underMaxProps.Count > 0; i++) {
+        for (int i = 0; i < statPoints && underMaxProps.Count > 0; i++) {
             int random = Random.Range(0, underMaxProps.Count - 1);
             PropertyInfo prop = underMaxProps[random];
             int currentValue = (int)prop.GetValue(this);

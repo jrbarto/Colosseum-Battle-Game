@@ -3573,9 +3573,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: short-sword
       objectReference: {fileID: 0}
+    - target: {fileID: 8622820185925358389, guid: 8d4d04d6310860c5392d2197658fb439, type: 3}
+      propertyPath: attackSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8996037550847513448, guid: 8d4d04d6310860c5392d2197658fb439, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 1.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
