@@ -1,15 +1,19 @@
 using System.Collections;
 using UnityEngine;
 
-public class GlowObject : MonoBehaviour
+public class PickupObject : MonoBehaviour, IInteractable
 {
     public Color glowColor = Color.yellow;
     public float glowIntensity = 3f;
-    public float hoverHeight = 0.2f;
+    public float hoverHeight = 2.2f;
     public float hoverForce = 25f;
     public float damping = 6f;
     private Rigidbody rigidBody;
     private bool glowEnabled;
+
+    public void Interact () {
+        Debug.Log("Interacting with the pickup object!");
+    }
 
     void Awake () {
         rigidBody = GetComponent<Rigidbody>();
@@ -40,6 +44,10 @@ public class GlowObject : MonoBehaviour
         yield return new WaitForSeconds(3);
         ToggleGlow(transform, glowEnabled);
         this.glowEnabled = glowEnabled;
+        Collider collider = GetComponent<Collider>();
+        if (collider != null) {
+            collider.isTrigger = true;
+        }
     }
 
     public void ToggleGlowHierarchy(bool glowEnabled)

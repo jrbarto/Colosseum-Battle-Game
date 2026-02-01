@@ -3616,6 +3616,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8031088379825859877, guid: 72891333abc4ad58eafc87d37346a999, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8302052225522957325}
+    - targetCorrespondingSourceObject: {fileID: 8031088379825859877, guid: 72891333abc4ad58eafc87d37346a999, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 560534402053933103}
   m_SourcePrefab: {fileID: 100100000, guid: 72891333abc4ad58eafc87d37346a999, type: 3}
 --- !u!4 &2457495232621287269 stripped
 Transform:
@@ -3641,6 +3644,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GlowObject
   glowColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   glowIntensity: 3
-  hoverHeight: 1.1
+  hoverHeight: 2.2
   hoverForce: 25
   damping: 6
+--- !u!114 &560534402053933103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6640623467502969101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 324fb97d78665acb4977102d9e3386bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'

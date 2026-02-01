@@ -34,7 +34,7 @@ public class CombatController : MonoBehaviour
         weaponCollider.enabled = true;
         weaponCollider.isTrigger = false;
         weapon.transform.GetComponent<Rigidbody>().useGravity = true;
-        GlowObject weaponGlow = weapon.GetComponent<GlowObject>();
+        PickupObject weaponGlow = weapon.GetComponent<PickupObject>();
         if (weaponGlow) {
             weaponGlow.ToggleGlowHierarchy(true);
         }

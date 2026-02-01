@@ -1,70 +1,58 @@
 using System.Reflection;
 using System.Collections.Generic;
 using UnityEngine;
+using Game.Enemy;
 
-using System.ComponentModel;
+using System;
 
 public class EnemyStats : MonoBehaviour
 {
-    public int turningSpeed { get; set; }
-    public int acceleration { get; set; }
-    public int maxSpeed { get; set; }
-    public int damage { get; set; }
-    public int attackSpeed { get; set; }
-    public int weaponLength { get; set; }
-    public int maxHealthPoints { get; set; }
-    public int stamina { get; set; }
-    private Dictionary<string, int> maxValues = new Dictionary<string, int> {
-        {"turningSpeed", 20},
-        {"acceleration", 50},
-        {"maxSpeed", 20},
-        {"damage", 20},
-        {"attackSpeed", 10},
-        {"weaponLength", 10},
-        {"maxHealthPoints", 20},
-        {"stamina", 20}
+    public Dictionary<StatType, int> stats = new Dictionary<StatType, int>();
+    public static Dictionary<StatType, int> maxValues = new Dictionary<StatType, int> {
+        { StatType.TurningSpeed, 20 },
+        { StatType.Acceleration, 50 },
+        { StatType.MaxSpeed, 20 },
+        { StatType.Damage, 20 },
+        { StatType.AttackSpeed, 10 },
+        { StatType.WeaponLength, 10 },
+        { StatType.MaxHealthPoints, 20 },
+        { StatType.Stamina, 20 }
     };
 
 
     public EnemyStats() {
-        this.turningSpeed = 0;
-        this.acceleration = 0;
-        this.maxSpeed = 0;
-        this.damage = 0;
-        this.attackSpeed = 0;
-        this.weaponLength = 0;
-        this.maxHealthPoints = 0;
-        this.stamina = 0;
+        foreach (StatType statName in Enum.GetValues(typeof(StatType))) {
+            this.stats[statName] = 0;
+        }
     }
 
     public void randomizeStats(int statPoints) {
-        List<PropertyInfo> underMaxProps = new List<PropertyInfo>();
+        List<StatType> underMaxStats = new List<StatType>();
 
-        foreach (string propName in this.maxValues.Keys) {
-            int maxValue = this.maxValues[propName];
-            PropertyInfo prop = typeof(EnemyStats).GetProperty(propName);
-            if ((int)prop.GetValue(this) < maxValue) {
-                underMaxProps.Add(prop);
+        foreach (StatType statName in EnemyStats.maxValues.Keys) {
+            int maxValue = EnemyStats.maxValues[statName];
+            if (stats[statName] < maxValue) {
+                underMaxStats.Add(statName);
             }
         }
-        for (int i = 0; i < statPoints && underMaxProps.Count > 0; i++) {
-            int random = Random.Range(0, underMaxProps.Count - 1);
-            PropertyInfo prop = underMaxProps[random];
-            int currentValue = (int)prop.GetValue(this);
-            prop.SetValue(this, currentValue + 1);
-            if (currentValue + 1 >= maxValues[prop.Name]) {
-                underMaxProps.RemoveAll(underMaxProp => underMaxProp.Name == prop.Name);
+        for (int i = 0; i < statPoints && underMaxStats.Count > 0; i++) {
+            int random = UnityEngine.Random.Range(0, underMaxStats.Count - 1);
+            StatType statName = underMaxStats[random];
+            int currentValue = this.stats[statName];
+            this.stats[statName] += 1;
+            if (currentValue + 1 >= EnemyStats.maxValues[statName]) {
+                underMaxStats.RemoveAll(underMaxStat => underMaxStat == statName);
             }
         }
 
-        Debug.Log("Randomized stats: turningSpeed: " + turningSpeed + 
-            " acceleration: " + acceleration +
-            " maxSpeed: " + maxSpeed +
-            " damage: " + damage + 
-            " attackSpeed: " + attackSpeed +
-            " weaponLength: " + weaponLength +
-            " maxHealthPoints: " + maxHealthPoints +
-            " stamina: " + stamina
+        Debug.Log("Randomized stats: turningSpeed: " + stats[StatType.TurningSpeed] + 
+            " acceleration: " + stats[StatType.Acceleration] +
+            " maxSpeed: " + stats[StatType.MaxSpeed] +
+            " damage: " + stats[StatType.Damage] + 
+            " attackSpeed: " + stats[StatType.AttackSpeed] +
+            " weaponLength: " + stats[StatType.WeaponLength] +
+            " maxHealthPoints: " + stats[StatType.MaxHealthPoints] +
+            " stamina: " + stats[StatType.Stamina]
         );
     }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using Game.Enemy;
 
 public class EnemyLevelController : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class EnemyLevelController : MonoBehaviour
     public int level;
     private Transform weaponTip;
     private Animator animator;
-    private EnemyStats stats;
+    public EnemyStats enemyStats;
 
     // TODO: add a leveling function that uses the enemy's current level and spreads it 
     // around through the following attributes (level 0 is base stats):
@@ -18,7 +19,7 @@ public class EnemyLevelController : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        stats = new EnemyStats();
+        enemyStats = new EnemyStats();
         this.setLevel(level); //remove when i move this to enemyspawner
         weaponTip = Utils.FindChildByName(weapon.transform, "weapon-tip").transform;
         float attackRange = calcAttackRange();
@@ -28,11 +29,18 @@ public class EnemyLevelController : MonoBehaviour
 
     public void setLevel(int level) {
         this.level = level;
-        stats.randomizeStats(level * 10);
-        this.configureWeaponLength(stats.weaponLength);
-        this.configureWeaponStats(stats.damage, stats.attackSpeed);
-        this.configureMovement(stats.turningSpeed, stats.acceleration, stats.maxSpeed);
-        this.configureHealth(stats.maxHealthPoints);
+        enemyStats.randomizeStats(level * 10);
+        this.configureWeaponLength(enemyStats.stats[StatType.WeaponLength]);
+        this.configureWeaponStats(
+            enemyStats.stats[StatType.Damage], 
+            enemyStats.stats[StatType.AttackSpeed]
+        );
+        this.configureMovement(
+            enemyStats.stats[StatType.TurningSpeed], 
+            enemyStats.stats[StatType.Acceleration], 
+            enemyStats.stats[StatType.MaxSpeed]
+        );
+        this.configureHealth(enemyStats.stats[StatType.MaxHealthPoints]);
     }
 
     private void configureWeaponLength(int weaponLength) {
