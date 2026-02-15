@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using System.Collections.Generic;
+using Game.Resources;
 
 public class PickupObject : MonoBehaviour, IInteractable
 {
@@ -11,8 +13,22 @@ public class PickupObject : MonoBehaviour, IInteractable
     private Rigidbody rigidBody;
     private bool glowEnabled;
 
-    public void Interact () {
-        Debug.Log("Interacting with the pickup object!");
+    public void Interact (PlayerEquipment equipment) {
+        WeaponParts parts = GetComponent<WeaponParts>();
+        if (parts != null && equipment != null) {
+            Dictionary<ResourceType, int> resources = parts.GetWeaponResources();
+            Debug.Log("Ran GetWeaponResources:");
+            foreach (KeyValuePair<ResourceType, int> entry in resources) {
+                Debug.Log(entry.Key + " : " + entry.Value);
+            }
+            foreach (KeyValuePair<ResourceType, int> entry in resources) {
+                equipment.resources[entry.Key] += entry.Value;
+            }
+        }
+        Debug.Log("Player equipment: ");
+        foreach (KeyValuePair<ResourceType, int> entry in equipment.resources) {
+            Debug.Log(entry.Key + " : " + entry.Value);
+        }
     }
 
     void Awake () {

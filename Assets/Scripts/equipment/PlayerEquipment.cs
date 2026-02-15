@@ -1,18 +1,17 @@
 using UnityEngine;
+using System.Collections.Generic;
+using Game.Resources;
+using System;
 
 public class PlayerEquipment : MonoBehaviour
 {
-    // TODO add field to hold a dictionary of resourceTypes to number of that resource
-    
+    public Dictionary<ResourceType, int> resources = new Dictionary<ResourceType, int>();
+
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        foreach (ResourceType resourceType in Enum.GetValues(typeof(ResourceType))) {
+            resources[resourceType] = 0;
+        }
     }
 }

@@ -24,7 +24,7 @@ public class EnemyLevelController : MonoBehaviour
         weaponTip = Utils.FindChildByName(weapon.transform, "weapon-tip").transform;
         float attackRange = calcAttackRange();
         weapon.GetComponent<WeaponAttack>().attackRange = attackRange;
-        
+        weapon.GetComponent<WeaponParts>().CalcWeaponScorePercentage(enemyStats);
     }
 
     public void setLevel(int level) {

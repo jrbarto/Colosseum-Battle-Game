@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
+    PlayerEquipment equipment;
+
+    void Start() {
+        this.equipment = GetComponentInParent<PlayerEquipment>();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -13,7 +19,7 @@ public class PlayerInteraction : MonoBehaviour
             RaycastHit[] hits = new RaycastHit[10];
             int hitCount = Physics.SphereCastNonAlloc(
                 ray,
-                0.1f,
+                0.5f,
                 hits,
                 4f
             );
@@ -37,7 +43,7 @@ public class PlayerInteraction : MonoBehaviour
             }
 
             if (interactable != null) {
-                interactable.Interact(); 
+                interactable.Interact(equipment); 
             }
         }
     }
