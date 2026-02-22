@@ -27,7 +27,7 @@ public class PlayerInteraction : MonoBehaviour
             for (int i = 0; i < hitCount; i++) {
                 interactable = hits[i].transform.GetComponentInParent<IInteractable>();
                 if (interactable != null) {
-                    Debug.Log("SPHERE CAST GOT INTERACTABLE!"); 
+                    //Debug.Log("SPHERE CAST GOT INTERACTABLE!"); 
                     break;
                 }
             }
@@ -36,13 +36,14 @@ public class PlayerInteraction : MonoBehaviour
                 foreach (Collider col in overlaps) {
                     interactable = col.GetComponentInParent<IInteractable>();
                     if (interactable != null) {
-                        Debug.Log("OVERLAP GOT INTERACTABLE!");
+                        //Debug.Log("OVERLAP GOT INTERACTABLE!");
                         break;
                     }
                 }
             }
 
             if (interactable != null) {
+                Debug.Log("Interacting with interactable");
                 interactable.Interact(equipment); 
             }
         }

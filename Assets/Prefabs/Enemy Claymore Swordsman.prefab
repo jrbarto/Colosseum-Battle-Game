@@ -346,7 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb4ec535ef4ef1e99ba3b6a90c09aae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealthPoints: 10
+  maxHealthPoints: 3
   healthText: {fileID: 655836200711454540}
 --- !u!65 &917675473298961574
 BoxCollider:
@@ -424,6 +424,7 @@ MonoBehaviour:
   attackClip: {fileID: -8970281547773981250, guid: fc96d48815d722912aea2882fa7b5b12, type: 3}
   centerBone: {fileID: 4540638611696496507}
   level: 0
+  enemyStats: {fileID: 0}
 --- !u!1 &474352818671350905
 GameObject:
   m_ObjectHideFlags: 0
@@ -3605,9 +3606,17 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6013100726918288041, guid: 72891333abc4ad58eafc87d37346a999, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8031088379825859877, guid: 72891333abc4ad58eafc87d37346a999, type: 3}
       propertyPath: m_Name
       value: claymore-sword
+      objectReference: {fileID: 0}
+    - target: {fileID: 8031088379825859877, guid: 72891333abc4ad58eafc87d37346a999, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3659,3 +3668,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 324fb97d78665acb4977102d9e3386bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  weaponScorePercent: 0

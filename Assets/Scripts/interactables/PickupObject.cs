@@ -12,27 +12,39 @@ public class PickupObject : MonoBehaviour, IInteractable
     public float damping = 6f;
     private Rigidbody rigidBody;
     private bool glowEnabled;
+    private PlayerMessages playerMessages;
 
     public void Interact (PlayerEquipment equipment) {
         WeaponParts parts = GetComponent<WeaponParts>();
         if (parts != null && equipment != null) {
             Dictionary<ResourceType, int> resources = parts.GetWeaponResources();
-            Debug.Log("Ran GetWeaponResources:");
+            int count = resources.Count;
+            int index = 0;
+            string message = "You picked up ";
             foreach (KeyValuePair<ResourceType, int> entry in resources) {
-                Debug.Log(entry.Key + " : " + entry.Value);
-            }
-            foreach (KeyValuePair<ResourceType, int> entry in resources) {
+                if (index != 0) {
+                    if (index == count - 1) {
+                        message += ", and ";
+                    } else {
+                        message += ", ";
+                    }
+                }
+                message += $"{entry.Value} {entry.Key}";
                 equipment.resources[entry.Key] += entry.Value;
+                index++;
             }
-        }
-        Debug.Log("Player equipment: ");
-        foreach (KeyValuePair<ResourceType, int> entry in equipment.resources) {
-            Debug.Log(entry.Key + " : " + entry.Value);
+
+            // notify player of acquired resources
+            if (playerMessages != null) {
+                playerMessages.ShowMessage(message);
+                GameObject.Destroy(gameObject);
+            }
         }
     }
 
     void Awake () {
         rigidBody = GetComponent<Rigidbody>();
+        playerMessages = GameObject.FindWithTag("PlayerMessages").GetComponent<PlayerMessages>();
     }
 
     void FixedUpdate () {
@@ -66,18 +78,14 @@ public class PickupObject : MonoBehaviour, IInteractable
         }
     }
 
-    public void ToggleGlowHierarchy(bool glowEnabled)
-    {
+    public void ToggleGlowHierarchy(bool glowEnabled) {
         StartCoroutine(WaitBeforeActivation(glowEnabled));
     }
 
-    void ToggleGlow(Transform parent, bool glowEnabled)
-    {
-        foreach (Transform child in parent)
-        {
+    void ToggleGlow(Transform parent, bool glowEnabled) {
+        foreach (Transform child in parent) {
             Renderer rend = child.GetComponent<Renderer>();
-            if (rend != null)
-            {
+            if (rend != null) {
                 foreach (Material mat in rend.materials)
                 {
                     if (glowEnabled) {

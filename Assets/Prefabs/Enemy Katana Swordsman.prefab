@@ -1900,7 +1900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb4ec535ef4ef1e99ba3b6a90c09aae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealthPoints: 9
+  maxHealthPoints: 2
   healthText: {fileID: 7655777751919187219}
 --- !u!65 &2386637765092902801
 BoxCollider:
