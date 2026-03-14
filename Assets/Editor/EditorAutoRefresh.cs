@@ -25,12 +25,10 @@ public static class EditorAutoRefresh {
         // save to update inspection window if selection changes
         if (currentSelection != lastSelection) {
             // force a save to trigger a refresh (there might be an alternative besides saving here?)
-            if (currentSelection != false) {
-                // save the current scene and all dirty assets
-                if (!Application.isPlaying) {
-                    AssetDatabase.SaveAssets();
-                    EditorSceneManager.SaveOpenScenes();
-                }
+            if (!Application.isPlaying) {
+                // save the current scene and all assets
+                AssetDatabase.SaveAssets();
+                EditorSceneManager.SaveOpenScenes();
             }
 
             lastSelection = currentSelection;
