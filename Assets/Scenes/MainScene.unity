@@ -23077,7 +23077,7 @@ MonoBehaviour:
   axis: 0
   verticalSensitivity: 9
   horizontalSensitivity: 9
-  movingTransform: {fileID: 0}
+  movingTransform: {fileID: 1171473834116360420}
 --- !u!114 &1948433089237348962
 MonoBehaviour:
   m_ObjectHideFlags: 0
